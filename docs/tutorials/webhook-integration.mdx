@@ -1,0 +1,64 @@
+import { Callout, Tabs, TabItem } from '@rapidoc/portal/components';
+
+# Tutorial: Subscribing to Order Webhooks
+
+BrewCraft sends asynchronous HTTP POST requests to your server when asynchronous events occur.
+
+<Callout type="warning">
+Always verify the HMAC SHA-256 signature on incoming webhooks to ensure payloads originate from BrewCraft.
+</Callout>
+
+---
+
+## Verifying Webhook Signatures
+
+Each webhook request includes a header named `BrewCraft-Signature`:
+
+```
+BrewCraft-Signature: t=1697621400,v1=92f98e826b14a273b027cf8f4cbb23...
+```
+
+Verify the signature using your webhook signing secret:
+
+<Tabs>
+  <TabItem label="Node.js">
+```javascript
+import crypto from "node:crypto";
+
+export function verifyBrewCraftWebhook(rawBody, signatureHeader, secret) {
+  const parts = Object.fromEntries(
+    signatureHeader.split(",").map(p => p.split("="))
+  );
+  const timestamp = parts.t;
+  const signature = parts.v1;
+
+  const signedPayload = `${timestamp}.${rawBody}`;
+  const expectedSignature = crypto
+    .createHmac("sha256", secret)
+    .update(signedPayload)
+    .digest("hex");
+
+  return crypto.timingSafeEqual(
+    Buffer.from(signature),
+    Buffer.from(expectedSignature)
+  );
+}
+```
+  </TabItem>
+  <TabItem label="Python">
+```python
+import hmac
+import hashlib
+
+def verify_brewcraft_webhook(raw_body: str, signature_header: str, secret: str) -> bool:
+    parts = dict(item.split("=") for item in signature_header.split(","))
+    timestamp = parts["t"]
+    signature = parts["v1"]
+    
+    signed_payload = f"{timestamp}.{raw_body}".encode("utf-8")
+    expected_sig = hmac.new(secret.encode("utf-8"), signed_payload, hashlib.sha256).hexdigest()
+    
+    return hmac.compare_digest(signature, expected_sig)
+```
+  </TabItem>
+</Tabs>

@@ -1,0 +1,41 @@
+# BeanPoints Loyalty & Rewards System
+
+BrewCraft features a tier-based rewards system designed to drive customer retention.
+
+---
+
+## Loyalty Tiers
+
+{% card-grid %}
+{% card title="Seed Tier" icon="seedling" %}
+- Entry level on sign-up
+- Earn **10 BeanPoints per $1** spent
+- Free birthday espresso shot
+{% /card %}
+
+{% card title="Sprout Tier" icon="leaf" %}
+- Reach at 500 lifetime points
+- Earn **12.5 BeanPoints per $1** spent (1.25x multiplier)
+- 10% off whole bean bags
+{% /card %}
+
+{% card title="Bloom Tier" icon="flower" %}
+- Reach at 1,500 lifetime points
+- Earn **15 BeanPoints per $1** spent (1.5x multiplier)
+- Free non-dairy milk substitutions & monthly pastry pass
+{% /card %}
+{% /card-grid %}
+
+---
+
+## Redeeming Rewards
+
+Customers can exchange their BeanPoints for menu discounts or free drinks:
+
+{% callout type="tip" title="Double Points Tuesdays" %}
+Every Tuesday, all mobile app orders earn double BeanPoints automatically!
+{% /callout %}
+
+Test reward redemption directly in our sandbox:
+
+{% api-operation spec="loyalty" path="/rewards/redeem" method="post" /%}

@@ -1,0 +1,273 @@
+openapi: 3.1.0
+info:
+  title: BrewCraft Orders API
+  version: 1.4.0
+  description: Manage coffee, beverage, and pastry orders, checkout, and live order status.
+servers:
+  - url: https://api.brewcraft.io/v1
+    description: Production Server
+  - url: https://sandbox.brewcraft.io/v1
+    description: Sandbox Environment
+security:
+  - BearerAuth: []
+paths:
+  /orders:
+    post:
+      summary: Create an order
+      description: Places a new coffee and food order for pickup or dine-in.
+      operationId: createOrder
+      tags:
+        - Orders
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateOrderRequest'
+      responses:
+        '201':
+          description: Order created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Order'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+    get:
+      summary: List orders
+      description: Retrieve a paginated list of recent orders.
+      operationId: listOrders
+      tags:
+        - Orders
+      parameters:
+        - name: status
+          in: query
+          required: false
+          schema:
+            type: string
+            enum: [pending, brewing, ready, completed, cancelled]
+        - name: limit
+          in: query
+          required: false
+          schema:
+            type: integer
+            default: 20
+      responses:
+        '200':
+          description: List of orders
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Order'
+                  total:
+                    type: integer
+                    example: 42
+  /orders/{orderId}:
+    parameters:
+      - name: orderId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+    get:
+      summary: Get order details
+      operationId: getOrder
+      tags:
+        - Orders
+      responses:
+        '200':
+          description: Order details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Order'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      summary: Cancel an order
+      operationId: cancelOrder
+      tags:
+        - Orders
+      responses:
+        '204':
+          description: Order cancelled successfully
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /orders/{orderId}/status:
+    parameters:
+      - name: orderId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+    patch:
+      summary: Update order status
+      description: Barista or staff endpoint to update fulfillment status.
+      operationId: updateOrderStatus
+      tags:
+        - Orders
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - status
+              properties:
+                status:
+                  type: string
+                  enum: [brewing, ready, completed, cancelled]
+                notes:
+                  type: string
+                  example: Extra caramel drizzle added
+      responses:
+        '200':
+          description: Updated order
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Order'
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  schemas:
+    OrderItem:
+      type: object
+      required:
+        - itemId
+        - name
+        - quantity
+        - unitPrice
+      properties:
+        itemId:
+          type: string
+          example: item_espresso_double
+        name:
+          type: string
+          example: Double Espresso
+        size:
+          type: string
+          enum: [small, medium, large]
+          example: medium
+        milk:
+          type: string
+          enum: [whole, oat, almond, soy, none]
+          example: oat
+        quantity:
+          type: integer
+          minimum: 1
+          example: 2
+        unitPrice:
+          type: number
+          format: float
+          example: 4.50
+    CreateOrderRequest:
+      type: object
+      required:
+        - customerId
+        - orderType
+        - items
+      properties:
+        customerId:
+          type: string
+          example: cust_987654
+        orderType:
+          type: string
+          enum: [dine-in, takeaway, delivery]
+          example: takeaway
+        tableNumber:
+          type: integer
+          example: 12
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderItem'
+        tipAmount:
+          type: number
+          example: 1.50
+    Order:
+      type: object
+      required:
+        - id
+        - customerId
+        - status
+        - items
+        - subtotal
+        - total
+        - createdAt
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: 9b1deb4d-3b7d-4bad-9bdd-2b0d7b3dcb6d
+        customerId:
+          type: string
+          example: cust_987654
+        status:
+          type: string
+          enum: [pending, brewing, ready, completed, cancelled]
+          example: brewing
+        orderType:
+          type: string
+          enum: [dine-in, takeaway, delivery]
+          example: takeaway
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderItem'
+        subtotal:
+          type: number
+          example: 9.00
+        tipAmount:
+          type: number
+          example: 1.50
+        total:
+          type: number
+          example: 10.50
+        createdAt:
+          type: string
+          format: date-time
+          example: '2026-10-18T10:15:30Z'
+    ProblemDetails:
+      type: object
+      required:
+        - type
+        - title
+        - status
+      properties:
+        type:
+          type: string
+          example: 'https://brewcraft.io/errors/invalid-request'
+        title:
+          type: string
+          example: Invalid Order Payload
+        status:
+          type: integer
+          example: 400
+        detail:
+          type: string
+          example: Item quantity must be at least 1.
+  responses:
+    BadRequest:
+      description: Invalid request parameters
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ProblemDetails'
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ProblemDetails'

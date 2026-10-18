@@ -1,0 +1,151 @@
+openapi: 3.1.0
+info:
+  title: BrewCraft Payments API
+  version: 1.2.0
+  description: Process credit card, Apple Pay, Google Pay charges, tips, and refunds.
+servers:
+  - url: https://api.brewcraft.io/v1/payments
+    description: Payments Engine
+security:
+  - ApiKeyAuth: []
+paths:
+  /intents:
+    post:
+      summary: Create payment intent
+      operationId: createPaymentIntent
+      tags:
+        - Payments
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateIntentRequest'
+      responses:
+        '201':
+          description: Intent created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaymentIntent'
+  /intents/{intentId}:
+    parameters:
+      - name: intentId
+        in: path
+        required: true
+        schema:
+          type: string
+    get:
+      summary: Retrieve payment intent
+      operationId: getPaymentIntent
+      tags:
+        - Payments
+      responses:
+        '200':
+          description: Payment intent details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaymentIntent'
+  /intents/{intentId}/refund:
+    parameters:
+      - name: intentId
+        in: path
+        required: true
+        schema:
+          type: string
+    post:
+      summary: Refund a payment
+      operationId: refundPayment
+      tags:
+        - Refunds
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                amount:
+                  type: number
+                  description: Optional partial refund amount (defaults to full)
+                  example: 5.00
+                reason:
+                  type: string
+                  example: Order cancelled prior to brewing
+      responses:
+        '200':
+          description: Refund processed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  refundId:
+                    type: string
+                    format: uuid
+                  status:
+                    type: string
+                    example: succeeded
+                  amountRefunded:
+                    type: number
+                    example: 5.00
+components:
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-BrewCraft-Secret
+  schemas:
+    CreateIntentRequest:
+      type: object
+      required:
+        - orderId
+        - amount
+        - currency
+      properties:
+        orderId:
+          type: string
+          example: 9b1deb4d-3b7d-4bad-9bdd-2b0d7b3dcb6d
+        amount:
+          type: number
+          example: 12.50
+        tipAmount:
+          type: number
+          example: 2.00
+        currency:
+          type: string
+          default: USD
+          example: USD
+        paymentMethod:
+          type: string
+          enum: [card, apple_pay, google_pay, bean_points]
+          default: card
+    PaymentIntent:
+      type: object
+      required:
+        - id
+        - orderId
+        - status
+        - amount
+      properties:
+        id:
+          type: string
+          example: pi_3N4xLm89ZaQ
+        orderId:
+          type: string
+          example: 9b1deb4d-3b7d-4bad-9bdd-2b0d7b3dcb6d
+        status:
+          type: string
+          enum: [requires_payment_method, requires_confirmation, succeeded, failed]
+          example: succeeded
+        amount:
+          type: number
+          example: 12.50
+        clientSecret:
+          type: string
+          example: pi_3N4xLm89ZaQ_secret_Ab98c
+        createdAt:
+          type: string
+          format: date-time
+          example: '2026-10-18T10:15:35Z'

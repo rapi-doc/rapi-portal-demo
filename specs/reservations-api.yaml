@@ -1,0 +1,195 @@
+openapi: 3.1.0
+info:
+  title: BrewCraft Table Reservations API
+  version: 1.1.0
+  description: Book, reschedule, and manage cafe and patio table reservations.
+servers:
+  - url: https://api.brewcraft.io/v1/reservations
+    description: Reservations Server
+paths:
+  /availability:
+    get:
+      summary: Check table availability
+      operationId: checkAvailability
+      tags:
+        - Availability
+      parameters:
+        - name: date
+          in: query
+          required: true
+          schema:
+            type: string
+            format: date
+            example: '2026-10-25'
+        - name: partySize
+          in: query
+          required: true
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 12
+            example: 4
+        - name: seatingArea
+          in: query
+          schema:
+            type: string
+            enum: [indoor, patio, window, bar]
+      responses:
+        '200':
+          description: Available time slots
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  date:
+                    type: string
+                    format: date
+                  availableSlots:
+                    type: array
+                    items:
+                      type: string
+                      example: '14:30'
+  /reservations:
+    post:
+      summary: Book a reservation
+      operationId: createReservation
+      tags:
+        - Reservations
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReservationRequest'
+      responses:
+        '201':
+          description: Reservation booked successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Reservation'
+    get:
+      summary: List reservations
+      operationId: listReservations
+      tags:
+        - Reservations
+      parameters:
+        - name: customerEmail
+          in: query
+          required: false
+          schema:
+            type: string
+            format: email
+      responses:
+        '200':
+          description: Customer reservations
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Reservation'
+  /reservations/{reservationId}:
+    parameters:
+      - name: reservationId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+    get:
+      summary: Get reservation details
+      operationId: getReservation
+      tags:
+        - Reservations
+      responses:
+        '200':
+          description: Reservation details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Reservation'
+    delete:
+      summary: Cancel reservation
+      operationId: cancelReservation
+      tags:
+        - Reservations
+      responses:
+        '204':
+          description: Reservation cancelled
+components:
+  schemas:
+    ReservationRequest:
+      type: object
+      required:
+        - guestName
+        - guestEmail
+        - guestPhone
+        - partySize
+        - date
+        - timeSlot
+      properties:
+        guestName:
+          type: string
+          example: Sarah Connor
+        guestEmail:
+          type: string
+          format: email
+          example: sarah@example.com
+        guestPhone:
+          type: string
+          example: '+1-555-0199'
+        partySize:
+          type: integer
+          minimum: 1
+          maximum: 12
+          example: 4
+        seatingArea:
+          type: string
+          enum: [indoor, patio, window, bar]
+          default: indoor
+        date:
+          type: string
+          format: date
+          example: '2026-10-25'
+        timeSlot:
+          type: string
+          example: '14:30'
+        specialRequests:
+          type: string
+          example: High chair needed for toddler.
+    Reservation:
+      type: object
+      required:
+        - id
+        - guestName
+        - partySize
+        - date
+        - timeSlot
+        - status
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: 3fa85f64-5717-4562-b3fc-2c963f66afa6
+        guestName:
+          type: string
+          example: Sarah Connor
+        partySize:
+          type: integer
+          example: 4
+        seatingArea:
+          type: string
+          example: patio
+        date:
+          type: string
+          format: date
+          example: '2026-10-25'
+        timeSlot:
+          type: string
+          example: '14:30'
+        status:
+          type: string
+          enum: [confirmed, seated, completed, cancelled]
+          example: confirmed

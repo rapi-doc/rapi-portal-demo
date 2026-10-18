@@ -1,0 +1,112 @@
+# ==========================================
+# BrewCraft Developer Portal Configuration
+# ==========================================
+site:
+  title: "BrewCraft Developer Platform"
+  tagline: "APIs for coffee ordering, cafe reservations, catalog, and rewards"
+  logo:
+    light: "https://rapidocui.com/images/logo.png"
+    dark: "https://rapidocui.com/images/logo.png"
+    alt: "BrewCraft Platform"
+  favicon: "/favicon.ico"
+
+# ==========================================
+# Multi-API Specifications Catalog
+# ==========================================
+apis:
+  orders:
+    root: "./specs/orders-api.yaml"
+    path: "/apis/orders"
+    title: "Orders API"
+    version: "v1.4"
+    description: "Submit, track, and fulfill coffee orders."
+  catalog:
+    root: "./specs/catalog-api.yaml"
+    path: "/apis/catalog"
+    title: "Menu & Catalog API"
+    version: "v2.1"
+    description: "Browse blends, roasts, pastries, and stock levels."
+  reservations:
+    root: "./specs/reservations-api.yaml"
+    path: "/apis/reservations"
+    title: "Table Reservations API"
+    version: "v1.1"
+    description: "Book indoor, patio, or bar seating."
+  loyalty:
+    root: "./specs/loyalty-api.yaml"
+    path: "/apis/loyalty"
+    title: "Loyalty & Rewards API"
+    version: "v1.0"
+    description: "Manage BeanPoints, tiers, and member rewards."
+  payments:
+    root: "./specs/payments-api.yaml"
+    path: "/apis/payments"
+    title: "Payments API"
+    version: "v1.2"
+    description: "Process payments, digital receipts, and refunds."
+
+# ==========================================
+# Documentation Directory
+# ==========================================
+docs:
+  dir: "./docs"
+  engine: "markdoc"
+
+# ==========================================
+# Portal Navigation & Sidebar Hierarchy
+# ==========================================
+navigation:
+  - title: "Getting Started"
+    items:
+      - label: "Overview & Base URLs"
+        path: "/docs/getting-started"
+      - label: "Authentication"
+        path: "/docs/authentication"
+      - label: "Errors & Status Codes"
+        path: "/docs/errors-and-status-codes"
+
+  - title: "Core Guides (Markdoc)"
+    items:
+      - label: "Order Fulfillment Guide"
+        path: "/docs/guides/order-fulfillment"
+      - label: "Loyalty & BeanPoints"
+        path: "/docs/guides/loyalty-and-rewards"
+
+  - title: "Tutorials (MDX)"
+    items:
+      - label: "Table Reservation Flow"
+        path: "/docs/tutorials/table-reservation-flow"
+      - label: "Subscribing to Webhooks"
+        path: "/docs/tutorials/webhook-integration"
+
+  - title: "API Reference"
+    items:
+      - label: "Orders API"
+        api: "orders"
+      - label: "Catalog & Menu API"
+        api: "catalog"
+      - label: "Reservations API"
+        api: "reservations"
+      - label: "Loyalty & Rewards API"
+        api: "loyalty"
+      - label: "Payments API"
+        api: "payments"
+
+# ==========================================
+# RapiDoc Web Component Defaults & Theming
+# ==========================================
+rapidoc:
+  render-style: "focused"
+  schema-style: "tree"
+  show-header: false
+  allow-try: true
+  allow-authentication: true
+  theme: "dark"
+  primary-color: "#f59e0b"
+  bg-color: "#0f172a"
+  text-color: "#f8fafc"
+  nav-item-spacing: "compact"
+
+search:
+  enabled: true
+  provider: "pagefind"

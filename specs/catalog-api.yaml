@@ -1,0 +1,180 @@
+openapi: 3.1.0
+info:
+  title: BrewCraft Menu & Catalog API
+  version: 2.1.0
+  description: Explore coffee blends, seasonal single-origin roasts, tea, and bakery inventory.
+servers:
+  - url: https://api.brewcraft.io/v1/catalog
+    description: Production Catalog Server
+paths:
+  /categories:
+    get:
+      summary: List menu categories
+      operationId: listCategories
+      tags:
+        - Categories
+      responses:
+        '200':
+          description: List of categories
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Category'
+  /items:
+    get:
+      summary: Search and filter menu items
+      operationId: listItems
+      tags:
+        - Items
+      parameters:
+        - name: categoryId
+          in: query
+          schema:
+            type: string
+        - name: inStockOnly
+          in: query
+          schema:
+            type: boolean
+            default: true
+        - name: dietary
+          in: query
+          description: Filter by dietary preferences (vegan, gluten-free, dairy-free)
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Filtered menu items
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/MenuItem'
+  /items/{itemId}:
+    parameters:
+      - name: itemId
+        in: path
+        required: true
+        schema:
+          type: string
+    get:
+      summary: Get menu item details
+      operationId: getItem
+      tags:
+        - Items
+      responses:
+        '200':
+          description: Detailed item info
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MenuItem'
+  /items/{itemId}/stock:
+    parameters:
+      - name: itemId
+        in: path
+        required: true
+        schema:
+          type: string
+    patch:
+      summary: Update item stock level
+      operationId: updateItemStock
+      tags:
+        - Inventory
+      security:
+        - StaffApiKey: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - availableCount
+              properties:
+                availableCount:
+                  type: integer
+                  minimum: 0
+                  example: 15
+                isSoldOut:
+                  type: boolean
+                  example: false
+      responses:
+        '200':
+          description: Stock updated
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  itemId:
+                    type: string
+                  availableCount:
+                    type: integer
+                  isSoldOut:
+                    type: boolean
+components:
+  securitySchemes:
+    StaffApiKey:
+      type: apiKey
+      in: header
+      name: X-Staff-Key
+  schemas:
+    Category:
+      type: object
+      required:
+        - id
+        - name
+        - slug
+      properties:
+        id:
+          type: string
+          example: cat_espresso
+        name:
+          type: string
+          example: Espresso & Specialty
+        slug:
+          type: string
+          example: espresso-specialty
+        displayOrder:
+          type: integer
+          example: 1
+    MenuItem:
+      type: object
+      required:
+        - id
+        - categoryId
+        - name
+        - basePrice
+        - inStock
+      properties:
+        id:
+          type: string
+          example: item_flat_white
+        categoryId:
+          type: string
+          example: cat_espresso
+        name:
+          type: string
+          example: Velvet Flat White
+        description:
+          type: string
+          example: Double shot of Ethiopian Yirgacheffe with silky steamed oat milk.
+        basePrice:
+          type: number
+          format: float
+          example: 4.80
+        inStock:
+          type: boolean
+          example: true
+        roastLevel:
+          type: string
+          enum: [light, medium, dark]
+          example: light
+        dietaryTags:
+          type: array
+          items:
+            type: string
+          example: [vegan, organic]

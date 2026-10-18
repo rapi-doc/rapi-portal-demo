@@ -1,0 +1,151 @@
+openapi: 3.1.0
+info:
+  title: BrewCraft Loyalty & Rewards API
+  version: 1.0.0
+  description: Customer loyalty accounts, BeanPoints balance, reward redemptions, and tier benefits.
+servers:
+  - url: https://api.brewcraft.io/v1/loyalty
+    description: Loyalty Service
+security:
+  - MemberToken: []
+paths:
+  /members/{memberId}:
+    parameters:
+      - name: memberId
+        in: path
+        required: true
+        schema:
+          type: string
+    get:
+      summary: Get member loyalty profile
+      operationId: getMemberProfile
+      tags:
+        - Profile
+      responses:
+        '200':
+          description: Member profile and point balances
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LoyaltyMember'
+  /rewards:
+    get:
+      summary: List available rewards
+      operationId: listRewards
+      tags:
+        - Rewards
+      responses:
+        '200':
+          description: Rewards catalog
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Reward'
+  /rewards/redeem:
+    post:
+      summary: Redeem points for a reward
+      operationId: redeemReward
+      tags:
+        - Rewards
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - memberId
+                - rewardId
+              properties:
+                memberId:
+                  type: string
+                  example: mem_102938
+                rewardId:
+                  type: string
+                  example: rew_free_pastry
+      responses:
+        '200':
+          description: Reward redemption voucher
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RedemptionResult'
+components:
+  securitySchemes:
+    MemberToken:
+      type: http
+      scheme: bearer
+  schemas:
+    LoyaltyMember:
+      type: object
+      required:
+        - memberId
+        - pointsBalance
+        - tier
+      properties:
+        memberId:
+          type: string
+          example: mem_102938
+        customerName:
+          type: string
+          example: Alex Mercer
+        pointsBalance:
+          type: integer
+          example: 450
+        lifetimePoints:
+          type: integer
+          example: 1850
+        tier:
+          type: string
+          enum: [Seed, Sprout, Bloom]
+          example: Sprout
+        tierMultiplier:
+          type: number
+          example: 1.25
+    Reward:
+      type: object
+      required:
+        - id
+        - name
+        - pointsRequired
+      properties:
+        id:
+          type: string
+          example: rew_free_pastry
+        name:
+          type: string
+          example: Fresh Bakery Pastry
+        description:
+          type: string
+          example: Choose any croissant, scone, or cookie from the bakery case.
+        pointsRequired:
+          type: integer
+          example: 200
+        category:
+          type: string
+          example: food
+    RedemptionResult:
+      type: object
+      required:
+        - voucherCode
+        - rewardId
+        - remainingPoints
+      properties:
+        voucherCode:
+          type: string
+          example: BEAN-PASS-9988
+        rewardId:
+          type: string
+          example: rew_free_pastry
+        pointsDeducted:
+          type: integer
+          example: 200
+        remainingPoints:
+          type: integer
+          example: 250
+        expiresAt:
+          type: string
+          format: date-time
+          example: '2026-10-25T23:59:59Z'
