@@ -1,112 +1,205 @@
-# ==========================================
-# BrewCraft Developer Portal Configuration
-# ==========================================
 site:
-  title: "BrewCraft Developer Platform"
-  tagline: "APIs for coffee ordering, cafe reservations, catalog, and rewards"
+  title: Cosmo Cargo Inc.
+  description: Interstellar shipping API documentation and developer console.
+  announcement:
+    text: We're announcing 🧑‍🚀 inter-galactic shipping ✨ for 3025!
+    link: /docs/shipping-process
+    dismissible: true
+    bgColor: "#f76b39"
+    textColor: "#000000"
   logo:
-    light: "https://rapidocui.com/images/logo.png"
-    dark: "https://rapidocui.com/images/logo.png"
-    alt: "BrewCraft Platform"
-  favicon: "/favicon.ico"
-
-# ==========================================
-# Multi-API Specifications Catalog
-# ==========================================
-apis:
-  orders:
-    root: "./specs/orders-api.yaml"
-    path: "/apis/orders"
-    title: "Orders API"
-    version: "v1.4"
-    description: "Submit, track, and fulfill coffee orders."
-  catalog:
-    root: "./specs/catalog-api.yaml"
-    path: "/apis/catalog"
-    title: "Menu & Catalog API"
-    version: "v2.1"
-    description: "Browse blends, roasts, pastries, and stock levels."
-  reservations:
-    root: "./specs/reservations-api.yaml"
-    path: "/apis/reservations"
-    title: "Table Reservations API"
-    version: "v1.1"
-    description: "Book indoor, patio, or bar seating."
-  loyalty:
-    root: "./specs/loyalty-api.yaml"
-    path: "/apis/loyalty"
-    title: "Loyalty & Rewards API"
-    version: "v1.0"
-    description: "Manage BeanPoints, tiers, and member rewards."
-  payments:
-    root: "./specs/payments-api.yaml"
-    path: "/apis/payments"
-    title: "Payments API"
-    version: "v1.2"
-    description: "Process payments, digital receipts, and refunds."
-
-# ==========================================
-# Documentation Directory
-# ==========================================
+    text: COSMO CARGO
+    icon: 🚀
+    href: /
+  headerLinks:
+    - label: Solutions
+      items:
+        - label: Shipment Tracking
+          icon: "🛰️"
+          description: "Real-time quantum-entangled tracking across star systems"
+          href: /docs/tracking
+        - label: Warp Logistics
+          icon: "⚡"
+          description: "FTL delivery for time-critical cargo"
+          href: /docs/warp-lane-tutorial
+        - label: API Catalog
+          icon: "⊞"
+          description: "Browse all available Cosmo Cargo APIs"
+          href: /catalog
+    - label: Products
+      items:
+        - label: Cargo Containers
+          icon: "📦"
+          description: "Interstellar freight specifications and volume standards"
+          href: /docs/cargo-manifest-guide
+        - label: Fleet Operations
+          icon: "🚀"
+          description: "Warp drive maintenance and sub-light routing"
+          href: /docs/shipping-process
+        - label: Quantum Express
+          icon: "⚡"
+          description: "Priority expedited transport for high-value cargo"
+          href: /docs/quantum-express
+    - label: Login
+      href: /login
+  footer:
+    columns:
+      - title: Product
+        links:
+          - label: Features
+            href: https://rapidocweb.com
+          - label: Docs
+            href: /docs/documentation
+      - title: Company
+        links:
+          - label: About
+            href: /about
+          - label: Blog
+            href: /blog
+          - label: Careers
+            href: /careers
+      - title: Resources
+        links:
+          - label: API Reference
+            href: /apis/shipments
+          - label: Status
+            href: /status
+          - label: Support
+            href: /docs/support/contact
+      - title: Legal
+        links:
+          - label: Privacy
+            href: /privacy
+          - label: Terms
+            href: /terms
+          - label: Security
+            href: /security
+    social:
+      - icon: github
+        href: https://github.com/rapi-doc/RapiDoc
+      - icon: x
+        href: https://x.com
+      - icon: discord
+        href: https://discord.gg
+    copyright: © 2026 Cosmo Cargo, Inc. All rights reserved.
+    branding: powered by RapiDoc
 docs:
-  dir: "./docs"
-  engine: "markdoc"
-
-# ==========================================
-# Portal Navigation & Sidebar Hierarchy
-# ==========================================
+  path: ./docs
+  toc: true
+apis:
+  - id: shipments
+    title: Shipment API
+    root: ./specs/shipments.json
+    path: /apis/shipments
+    category: Core
+  - id: labels
+    title: Labels & Stamps API
+    root: ./specs/label-v3.json
+    path: /catalog/api-label
+    category: Printing
+  - id: webhooks
+    title: Webhook API
+    root: ./specs/webhooks.json
+    path: /catalog/api-webhooks
+    category: Platform
+  - id: interplanetary
+    title: Interplanetary Shipping API
+    root: ./specs/interplanetary.json
+    path: /catalog/api-interplanetary
+    category: Interplanetary
+  - id: tracking
+    title: Shipping Tracking API
+    root: ./specs/tracking-v1.json
+    path: /catalog/api-tracking
+    category: Core
+  - id: ai-cargo
+    title: AI-Powered Cargo Management API
+    root: ./specs/ai-cargo.json
+    path: /catalog/api-ai-cargo
+    category: AI & Automation
+  - id: docs-api
+    title: Cosmo Cargo Documentation API
+    root: ./specs/docs.json
+    path: /catalog/api-docs
+    category: Platform
+  - id: cargo-containers
+    title: Cargo Container Specifications API
+    root: ./specs/cargo-containers.json
+    path: /catalog/api-cargo-containers
+    category: Core
+  - id: fleet-ops
+    title: Fleet Operations API
+    root: ./specs/fleet-ops.json
+    path: /catalog/api-fleet-ops
+    category: Core
 navigation:
-  - title: "Getting Started"
+  - title: General Information
     items:
-      - label: "Overview & Base URLs"
-        path: "/docs/getting-started"
-      - label: "Authentication"
-        path: "/docs/authentication"
-      - label: "Errors & Status Codes"
-        path: "/docs/errors-and-status-codes"
-
-  - title: "Core Guides (Markdoc)"
+      - label: Documentation
+        path: /docs/documentation
+  - title: Space Operations
+    icon: telescope
     items:
-      - label: "Order Fulfillment Guide"
-        path: "/docs/guides/order-fulfillment"
-      - label: "Loyalty & BeanPoints"
-        path: "/docs/guides/loyalty-and-rewards"
-
-  - title: "Tutorials (MDX)"
+      - label: Shipping Process
+        path: /docs/shipping-process
+      - label: Warp Lane Tutorial
+        path: /docs/warp-lane-tutorial
+      - label: Manifest Guide
+        path: /docs/cargo-manifest-guide
+      - label: Real-Time Tracking
+        path: /docs/tracking
+      - label: Quantum Express
+        path: /docs/quantum-express
+      - label: Ship States Reference
+        path: /docs/ship-states
+  - title: Shipping Guides
     items:
-      - label: "Table Reservation Flow"
-        path: "/docs/tutorials/table-reservation-flow"
-      - label: "Subscribing to Webhooks"
-        path: "/docs/tutorials/webhook-integration"
-
-  - title: "API Reference"
+      - label: Global Shipping
+        path: /docs/global
+      - label: Interstellar Shipping
+        path: /docs/interstellar
+      - label: Intergalactic Shipping
+        path: /docs/intergalactic
+  - title: Cargo Handbook
     items:
-      - label: "Orders API"
-        api: "orders"
-      - label: "Catalog & Menu API"
-        api: "catalog"
-      - label: "Reservations API"
-        api: "reservations"
-      - label: "Loyalty & Rewards API"
-        api: "loyalty"
-      - label: "Payments API"
-        api: "payments"
-
-# ==========================================
-# RapiDoc Web Component Defaults & Theming
-# ==========================================
+      - label: Hazardous Materials
+        path: /docs/cargo-handbook/hazardous
+      - label: Cryo Storage
+        path: /docs/cargo-handbook/cryo
+      - label: Living Organisms
+        path: /docs/cargo-handbook/living
+      - label: Anomalous Artifacts
+        path: /docs/cargo-handbook/anomalous
+  - title: Fleet Management
+    items:
+      - label: Warp Drives
+        path: /docs/fleet/warp-drives
+      - label: Refueling
+        path: /docs/fleet/refueling
+      - label: Maintenance
+        path: /docs/fleet/maintenance
+      - label: Crew Requirements
+        path: /docs/fleet/crew
+  - title: Compliance
+    items:
+      - label: Customs Clearance
+        path: /docs/compliance/customs
+      - label: Quarantine Protocols
+        path: /docs/compliance/quarantine
+      - label: Interstellar Treaties
+        path: /docs/compliance/treaties
+  - title: Support
+    items:
+      - label: Contact Dispatch
+        path: /docs/support/contact
+      - label: FAQ
+        path: /docs/support/faq
+      - label: Escalations
+        path: /docs/support/escalations
 rapidoc:
-  render-style: "focused"
-  schema-style: "tree"
-  show-header: false
-  allow-try: true
-  allow-authentication: true
-  theme: "dark"
-  primary-color: "#f59e0b"
-  bg-color: "#0f172a"
-  text-color: "#f8fafc"
-  nav-item-spacing: "compact"
-
-search:
-  enabled: true
-  provider: "pagefind"
+  render-style: read
+  schema-style: tree
+  show-header: "false"
+  show-side-nav: "false"
+  color-scheme: dark
+  primary-color: "#f76b39"
