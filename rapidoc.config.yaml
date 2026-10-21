@@ -12,6 +12,10 @@ site:
     icon: 🚀
     href: /
   headerLinks:
+    - label: Documentation
+      href: /docs/documentation
+    - label: API Catalog
+      href: /catalog
     - label: Shipment API
       href: /apis/shipments
     - label: Solutions
@@ -68,8 +72,6 @@ site:
           icon: shield
           description: Automated planetary quarantine and interplanetary customs
           href: /docs/compliance/customs
-    - label: API Catalog
-      href: /catalog
     - label: Login
       href: /login
   footer:
@@ -122,6 +124,7 @@ apis:
     root: ./specs/shipments.json
     path: /apis/shipments
     category: Core
+    featured: true
   - id: labels
     title: Labels & Stamps API
     root: ./specs/label-v3.json
