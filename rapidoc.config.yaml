@@ -12,34 +12,64 @@ site:
     icon: 🚀
     href: /
   headerLinks:
+    - label: Shipment API
+      href: /apis/shipments
     - label: Solutions
       items:
         - label: Shipment Tracking
-          icon: "🛰️"
-          description: "Real-time quantum-entangled tracking across star systems"
+          icon: satellite
+          description: Real-time quantum-entangled tracking across star systems
           href: /docs/tracking
+          features:
+            - label: Telemetry Stream
+              icon: radar
+              href: /docs/tracking
+            - label: Sub-light Radar
+              icon: eye
+              href: /docs/tracking
+            - label: FTL Ping Monitor
+              icon: zap
+              href: /docs/tracking
+            - label: Event Webhooks
+              icon: server
+              href: /docs/tutorials/webhook-integration
         - label: Warp Logistics
-          icon: "⚡"
-          description: "FTL delivery for time-critical cargo"
+          icon: zap
+          description: FTL delivery for time-critical cargo
           href: /docs/warp-lane-tutorial
-        - label: API Catalog
-          icon: "⊞"
-          description: "Browse all available Cosmo Cargo APIs"
-          href: /catalog
+          features:
+            - label: Hyper-lane Routing
+              icon: workflow
+              href: /docs/warp-lane-tutorial
+            - label: Jump Gate Protocols
+              icon: check
+              href: /docs/warp-lane-tutorial
+            - label: Gravity Well Bypass
+              icon: rocket
+              href: /docs/warp-lane-tutorial
+            - label: Fuel Manifests
+              icon: box
+              href: /docs/fleet/refueling
     - label: Products
       items:
         - label: Cargo Containers
-          icon: "📦"
-          description: "Interstellar freight specifications and volume standards"
+          icon: box
+          description: Interstellar freight specifications and volume standards
           href: /docs/cargo-manifest-guide
         - label: Fleet Operations
-          icon: "🚀"
-          description: "Warp drive maintenance and sub-light routing"
+          icon: rocket
+          description: Warp drive maintenance and sub-light routing
           href: /docs/shipping-process
         - label: Quantum Express
-          icon: "⚡"
-          description: "Priority expedited transport for high-value cargo"
+          icon: zap
+          description: Priority expedited transport for high-value cargo
           href: /docs/quantum-express
+        - label: Customs Clearance
+          icon: shield
+          description: Automated planetary quarantine and interplanetary customs
+          href: /docs/compliance/customs
+    - label: API Catalog
+      href: /catalog
     - label: Login
       href: /login
   footer:
