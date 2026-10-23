@@ -1,0 +1,51 @@
+---
+title: Book Your First Shipment
+description: Create a shipment and track it, with the live API console embedded in the page.
+---
+
+This guide books an interstellar shipment with the Shipment API and then tracks it. It is written in Markdoc, so it can use the portal's tags.
+
+{% callout type="tip" title="Try it in the page" %}
+The console below is the real Shipment API reference. Fill in the request and choose **Try** to send it to the mock server.
+{% /callout %}
+
+## Create the shipment
+
+{% steps %}
+{% step title="Get an API key" %}
+Create a key in the developer console and send it in the `X-API-Key` header.
+{% /step %}
+{% step title="Describe the cargo" %}
+Send the origin, destination and packages:
+
+{% tabs %}
+{% tab name="cURL" %}
+```sh
+curl -X POST https://api.cosmocargo.dev/v1/shipments \
+  -H "X-API-Key: $COSMO_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{"origin": "Earth", "destination": "Mars Colony Alpha", "packages": [{"weightKg": 42}]}'
+```
+{% /tab %}
+{% tab name="JavaScript" %}
+```js
+const response = await fetch('https://api.cosmocargo.dev/v1/shipments', {
+  method: 'POST',
+  headers: { 'X-API-Key': process.env.COSMO_API_KEY, 'Content-Type': 'application/json' },
+  body: JSON.stringify({ origin: 'Earth', destination: 'Mars Colony Alpha', packages: [{ weightKg: 42 }] }),
+});
+const shipment = await response.json();
+```
+{% /tab %}
+{% /tabs %}
+{% /step %}
+{% step title="Keep the tracking number" %}
+The response contains the `trackingNumber` you need to track the shipment. {% badge text="Required" variant="warning" /%}
+{% /step %}
+{% /steps %}
+
+{% api-operation spec="shipments" path="/shipments" method="post" title="Create a new shipment" /%}
+
+## Track it
+
+{% api-operation spec="shipments" path="/shipments/{trackingNumber}" method="get" title="Track a shipment" /%}

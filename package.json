@@ -1,7 +1,7 @@
 {
   "name": "demo-api-portal",
   "version": "1.0.0",
-  "description": "BrewCraft Cafe & Table Reservation Developer Portal - Dogfooding RapiDoc & @rapidoc/portal",
+  "description": "Cosmo Cargo Inc. Interstellar Shipping Developer Portal - Dogfooding RapiDoc & @rapidoc/portal",
   "private": true,
   "scripts": {
     "serve": "python3 -m http.server 8000",

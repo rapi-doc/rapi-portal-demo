@@ -7,19 +7,19 @@ BrewCraft features a tier-based rewards system designed to drive customer retent
 ## Loyalty Tiers
 
 {% card-grid %}
-{% card title="Seed Tier" icon="seedling" %}
+{% card title="Seed Tier" icon="star" %}
 - Entry level on sign-up
 - Earn **10 BeanPoints per $1** spent
 - Free birthday espresso shot
 {% /card %}
 
-{% card title="Sprout Tier" icon="leaf" %}
+{% card title="Sprout Tier" icon="rocket" %}
 - Reach at 500 lifetime points
 - Earn **12.5 BeanPoints per $1** spent (1.25x multiplier)
 - 10% off whole bean bags
 {% /card %}
 
-{% card title="Bloom Tier" icon="flower" %}
+{% card title="Bloom Tier" icon="heart" %}
 - Reach at 1,500 lifetime points
 - Earn **15 BeanPoints per $1** spent (1.5x multiplier)
 - Free non-dairy milk substitutions & monthly pastry pass

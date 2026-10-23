@@ -173,6 +173,8 @@ navigation:
   - title: Space Operations
     icon: telescope
     items:
+      - label: Book Your First Shipment
+        path: /docs/guides/first-shipment
       - label: Shipping Process
         path: /docs/shipping-process
       - label: Warp Lane Tutorial
@@ -236,3 +238,8 @@ rapidoc:
   show-side-nav: "false"
   color-scheme: dark
   primary-color: "#f76b39"
+
+theme:
+  font:
+    name: "Inter"
+    url: "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"

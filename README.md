@@ -1,8 +1,8 @@
-# ☕ BrewCraft Demo API Portal
+# 🚀 Cosmo Cargo Demo API Portal
 
 This repository serves as the reference testbed and dog-fooding environment for **RapiDoc**, **`@rapidoc/cli`**, and **`@rapidoc/portal`**.
 
-It demonstrates a full-featured developer platform for a modern coffee shop and reservation platform ("BrewCraft").
+It demonstrates a full-featured developer portal for **Cosmo Cargo Inc.**, a fictional interstellar shipping company: an API catalog, interactive API references, and narrative documentation, all generated from `rapidoc.config.yaml`.
 
 ---
 
@@ -10,50 +10,66 @@ It demonstrates a full-featured developer platform for a modern coffee shop and 
 
 ```text
 demo-api-portal/
-├── specs/                          # 5 OpenAPI Specifications
-│   ├── orders-api.yaml             # 1. Orders & fulfillment
-│   ├── catalog-api.yaml            # 2. Coffee blends, menu & bakery inventory
-│   ├── reservations-api.yaml       # 3. Table reservations & seating areas
-│   ├── loyalty-api.yaml            # 4. BeanPoints, member profiles & rewards
-│   └── payments-api.yaml           # 5. Charges, tips & refunds
-├── docs/                           # Documentation Files (3 formats)
-│   ├── getting-started.md          # Markdown: Overview & Base URLs
-│   ├── authentication.md           # Markdown: Tokens & API Keys
-│   ├── errors-and-status-codes.md  # Markdown: RFC 7807 problem details
-│   ├── guides/
-│   │   ├── order-fulfillment.markdoc     # Markdoc: Steps, tabs & api-operation
-│   │   └── loyalty-and-rewards.markdoc   # Markdoc: Cards & redemption
-│   └── tutorials/
-│       ├── table-reservation-flow.mdx    # MDX: Components & table slots
-│       └── webhook-integration.mdx       # MDX: Webhook signatures
-├── rapidoc.config.yaml             # Tolerant Super-Set config
-├── index.html                      # Standalone static portal test shell
-├── package.json                    # Scripts
-└── .github/workflows/deploy.yml    # GitHub Pages automated deployment
+├── rapidoc.config.yaml             # Portal config: site, docs, apis, navigation, rapidoc, theme
+├── specs/                          # OpenAPI specifications
+│   ├── shipments.json              # Shipment API (featured)
+│   ├── label-v3.json               # Labels & Stamps API (label-base, label-v1, label-v2 are earlier versions)
+│   ├── webhooks.json               # Webhook API
+│   ├── interplanetary.json         # Interplanetary Shipping API
+│   ├── tracking-v1.json            # Shipping Tracking API
+│   ├── ai-cargo.json               # AI-Powered Cargo Management API
+│   ├── docs.json                   # Cosmo Cargo Documentation API
+│   ├── cargo-containers.json       # Cargo Container Specifications API
+│   └── fleet-ops.json              # Fleet Operations API
+├── docs/                           # Narrative documentation (Markdown, MDX, Markdoc)
+│   ├── documentation.mdx           # Docs landing page
+│   ├── guides/first-shipment.markdoc # Markdoc guide with live Shipment API embeds ({% api-operation %})
+│   ├── shipping-process.mdx, tracking.mdx, warp-lane-tutorial.mdx, ...
+│   ├── billing/                    # Galactic credits, invoices, refunds
+│   ├── cargo-handbook/             # Anomalous, cryo, hazardous, and living cargo
+│   ├── compliance/                 # Customs, quarantine, treaties
+│   ├── fleet/                      # Crew, maintenance, refueling, warp drives
+│   └── support/                    # Contact, escalations, FAQ
+├── index.html                      # Legacy standalone RapiDoc test shell
+├── package.json
+└── .github/workflows/deploy.yml    # GitHub Pages deployment
 ```
+
+### Test fixtures
+
+Some files are kept as fixtures for the `@rapidoc/portal` and `@rapidoc/cli` test suites in the RapiDoc monorepo. They are not part of the Cosmo Cargo navigation, but **do not delete or rename them**:
+
+- `specs/orders-api.yaml`, `catalog-api.yaml`, `loyalty-api.yaml`, `payments-api.yaml`, `reservations-api.yaml`
+- `docs/guides/order-fulfillment.markdoc`, `docs/guides/loyalty-and-rewards.markdoc` (Markdoc tag coverage; their `api-operation` embeds name APIs that are not in `apis:`, which exercises the "API operation not found" notice)
+- `docs/tutorials/table-reservation-flow.mdx`, `docs/tutorials/webhook-integration.mdx`
 
 ---
 
-## Local Development & Testing
+## Local Development
 
-You can instantly test and serve this repository locally using Python:
+The portal is built with the `rapidoc` CLI from the RapiDoc monorepo (`astro-rapidoc`), expected as a sibling checkout at `../astro-rapidoc`.
 
 ```bash
-# Run local HTTP server
-python3 -m http.server 8000
+# Live dev server with hot reload on http://localhost:4321
+node ../astro-rapidoc/packages/rapidoc-cli/src/index.js dev
 
-# or using npm
-npm run serve
+# Static build into dist/
+node ../astro-rapidoc/packages/rapidoc-cli/src/index.js build
+
+# Validate a spec
+node ../astro-rapidoc/packages/rapidoc-cli/src/index.js validate ./specs/shipments.json
 ```
 
-Open [http://localhost:8000](http://localhost:8000) in your browser.
+`dist/` is the build output. While `dev` or `build` runs, the engine keeps its temporary Astro project in `.rapidoc-temp/` and deletes it when it finishes; both are gitignored.
+
+### Keeping in sync with `@rapidoc/portal`
+
+This repo tracks the current portal code. When the portal's config structure, Markdoc tags, or CLI commands change, update `rapidoc.config.yaml` and `docs/` here to match, then run `npm run test:portal` in the monorepo (those tests load and build this repo).
 
 ---
 
 ## Hosting on GitHub Pages
 
-This repository is ready to deploy directly to GitHub Pages:
-1. Push this repository to GitHub.
-2. In your repository settings, go to **Settings > Pages**.
-3. Under **Build and deployment > Source**, choose **GitHub Actions**.
-4. The workflow in `.github/workflows/deploy.yml` will build and publish your portal automatically.
+1. In your repository settings, go to **Settings > Pages**.
+2. Under **Build and deployment > Source**, choose **GitHub Actions**.
+3. Pushes to `main`/`master` run `.github/workflows/deploy.yml`, which uploads the repository root to GitHub Pages.
