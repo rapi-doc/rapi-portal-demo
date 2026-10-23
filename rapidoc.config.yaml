@@ -1,245 +1,234 @@
+# yaml-language-server: $schema=./node_modules/@rapidoc/portal/schema.json
 site:
   title: Cosmo Cargo Inc.
   description: Interstellar shipping API documentation and developer console.
-  announcement:
-    text: We're announcing 🧑‍🚀 inter-galactic shipping ✨ for 3025!
-    link: /docs/shipping-process
-    dismissible: true
-    bgColor: "#f76b39"
-    textColor: "#000000"
   logo:
+    src: /logo.svg
     text: COSMO CARGO
-    icon: 🚀
-    href: /
-  headerLinks:
-    - label: Documentation
-      href: /docs/documentation
-    - label: API Catalog
-      href: /catalog
-    - label: Shipment API
-      href: /apis/shipments
+  banner:
+    message: We're announcing 🧑‍🚀 inter-galactic shipping ✨ for 3025!
+    href: /docs/shipping-process
+    background: "#f76b39"
+    color: "#000000"
+theme:
+  primary: "#f76b39"
+  mode: dark
+  fonts:
+    sans:
+      family: Inter
+header:
+  links:
     - label: Solutions
       items:
         - label: Shipment Tracking
+          href: /docs/tracking
           icon: satellite
           description: Real-time quantum-entangled tracking across star systems
-          href: /docs/tracking
-          features:
+          items:
             - label: Telemetry Stream
+              href: /docs/tracking
               icon: radar
-              href: /docs/tracking
             - label: Sub-light Radar
+              href: /docs/tracking
               icon: eye
-              href: /docs/tracking
             - label: FTL Ping Monitor
-              icon: zap
               href: /docs/tracking
+              icon: zap
             - label: Event Webhooks
-              icon: server
               href: /docs/tutorials/webhook-integration
+              icon: server
         - label: Warp Logistics
+          href: /docs/warp-lane-tutorial
           icon: zap
           description: FTL delivery for time-critical cargo
-          href: /docs/warp-lane-tutorial
-          features:
+          items:
             - label: Hyper-lane Routing
+              href: /docs/warp-lane-tutorial
               icon: workflow
-              href: /docs/warp-lane-tutorial
             - label: Jump Gate Protocols
+              href: /docs/warp-lane-tutorial
               icon: check
-              href: /docs/warp-lane-tutorial
             - label: Gravity Well Bypass
-              icon: rocket
               href: /docs/warp-lane-tutorial
+              icon: rocket
             - label: Fuel Manifests
-              icon: box
               href: /docs/fleet/refueling
+              icon: box
     - label: Products
       items:
         - label: Cargo Containers
+          href: /docs/cargo-manifest-guide
           icon: box
           description: Interstellar freight specifications and volume standards
-          href: /docs/cargo-manifest-guide
         - label: Fleet Operations
+          href: /docs/shipping-process
           icon: rocket
           description: Warp drive maintenance and sub-light routing
-          href: /docs/shipping-process
         - label: Quantum Express
+          href: /docs/quantum-express
           icon: zap
           description: Priority expedited transport for high-value cargo
-          href: /docs/quantum-express
         - label: Customs Clearance
+          href: /docs/compliance/customs
           icon: shield
           description: Automated planetary quarantine and interplanetary customs
-          href: /docs/compliance/customs
     - label: Login
       href: /login
-  footer:
-    columns:
-      - title: Product
-        links:
-          - label: Features
-            href: https://rapidocweb.com
-          - label: Docs
-            href: /docs/documentation
-      - title: Company
-        links:
-          - label: About
-            href: /about
-          - label: Blog
-            href: /blog
-          - label: Careers
-            href: /careers
-      - title: Resources
-        links:
-          - label: API Reference
-            href: /apis/shipments
-          - label: Status
-            href: /status
-          - label: Support
-            href: /docs/support/contact
-      - title: Legal
-        links:
-          - label: Privacy
-            href: /privacy
-          - label: Terms
-            href: /terms
-          - label: Security
-            href: /security
-    social:
-      - icon: github
-        href: https://github.com/rapi-doc/RapiDoc
-      - icon: x
-        href: https://x.com
-      - icon: discord
-        href: https://discord.gg
-    copyright: © 2026 Cosmo Cargo, Inc. All rights reserved.
-    branding: powered by RapiDoc
-docs:
-  path: ./docs
-  toc: true
+      style: button
+navigation:
+  - label: Documentation
+    icon: book
+    items:
+      - label: General Information
+        items:
+          - label: Documentation
+            slug: documentation
+      - label: Space Operations
+        items:
+          - label: Book Your First Shipment
+            slug: guides/first-shipment
+          - label: Shipping Process
+            slug: shipping-process
+          - label: Warp Lane Tutorial
+            slug: warp-lane-tutorial
+          - label: Manifest Guide
+            slug: cargo-manifest-guide
+          - label: Real-Time Tracking
+            slug: tracking
+          - label: Quantum Express
+            slug: quantum-express
+          - label: Ship States Reference
+            slug: ship-states
+      - label: Shipping Guides
+        items:
+          - label: Global Shipping
+            slug: global
+          - label: Interstellar Shipping
+            slug: interstellar
+          - label: Intergalactic Shipping
+            slug: intergalactic
+      - label: Cargo Handbook
+        items:
+          - label: Hazardous Materials
+            slug: cargo-handbook/hazardous
+          - label: Cryo Storage
+            slug: cargo-handbook/cryo
+          - label: Living Organisms
+            slug: cargo-handbook/living
+          - label: Anomalous Artifacts
+            slug: cargo-handbook/anomalous
+      - label: Fleet Management
+        items:
+          - label: Warp Drives
+            slug: fleet/warp-drives
+          - label: Refueling
+            slug: fleet/refueling
+          - label: Maintenance
+            slug: fleet/maintenance
+          - label: Crew Requirements
+            slug: fleet/crew
+      - label: Compliance
+        items:
+          - label: Customs Clearance
+            slug: compliance/customs
+          - label: Quarantine Protocols
+            slug: compliance/quarantine
+          - label: Interstellar Treaties
+            slug: compliance/treaties
+      - label: Support
+        collapsed: true
+        autogenerate: support
+  - label: Shipments
+    icon: code
+    api: shipments
+  - label: API Catalog
+    icon: grid
+    catalog: true
 apis:
   - id: shipments
+    spec: ./specs/shipments.json
     title: Shipment API
-    root: ./specs/shipments.json
-    path: /apis/shipments
     category: Core
-    featured: true
   - id: labels
-    title: Labels & Stamps API
-    root: ./specs/label-v3.json
+    spec: ./specs/label-v3.json
     path: /catalog/api-label
+    title: Labels & Stamps API
     category: Printing
   - id: webhooks
-    title: Webhook API
-    root: ./specs/webhooks.json
+    spec: ./specs/webhooks.json
     path: /catalog/api-webhooks
+    title: Webhook API
     category: Platform
   - id: interplanetary
-    title: Interplanetary Shipping API
-    root: ./specs/interplanetary.json
+    spec: ./specs/interplanetary.json
     path: /catalog/api-interplanetary
+    title: Interplanetary Shipping API
     category: Interplanetary
   - id: tracking
-    title: Shipping Tracking API
-    root: ./specs/tracking-v1.json
+    spec: ./specs/tracking-v1.json
     path: /catalog/api-tracking
+    title: Shipping Tracking API
     category: Core
   - id: ai-cargo
-    title: AI-Powered Cargo Management API
-    root: ./specs/ai-cargo.json
+    spec: ./specs/ai-cargo.json
     path: /catalog/api-ai-cargo
+    title: AI-Powered Cargo Management API
     category: AI & Automation
   - id: docs-api
-    title: Cosmo Cargo Documentation API
-    root: ./specs/docs.json
+    spec: ./specs/docs.json
     path: /catalog/api-docs
+    title: Cosmo Cargo Documentation API
     category: Platform
   - id: cargo-containers
-    title: Cargo Container Specifications API
-    root: ./specs/cargo-containers.json
+    spec: ./specs/cargo-containers.json
     path: /catalog/api-cargo-containers
+    title: Cargo Container Specifications API
     category: Core
   - id: fleet-ops
-    title: Fleet Operations API
-    root: ./specs/fleet-ops.json
+    spec: ./specs/fleet-ops.json
     path: /catalog/api-fleet-ops
+    title: Fleet Operations API
     category: Core
-navigation:
-  - title: General Information
-    items:
-      - label: Documentation
-        path: /docs/documentation
-  - title: Space Operations
-    icon: telescope
-    items:
-      - label: Book Your First Shipment
-        path: /docs/guides/first-shipment
-      - label: Shipping Process
-        path: /docs/shipping-process
-      - label: Warp Lane Tutorial
-        path: /docs/warp-lane-tutorial
-      - label: Manifest Guide
-        path: /docs/cargo-manifest-guide
-      - label: Real-Time Tracking
-        path: /docs/tracking
-      - label: Quantum Express
-        path: /docs/quantum-express
-      - label: Ship States Reference
-        path: /docs/ship-states
-  - title: Shipping Guides
-    items:
-      - label: Global Shipping
-        path: /docs/global
-      - label: Interstellar Shipping
-        path: /docs/interstellar
-      - label: Intergalactic Shipping
-        path: /docs/intergalactic
-  - title: Cargo Handbook
-    items:
-      - label: Hazardous Materials
-        path: /docs/cargo-handbook/hazardous
-      - label: Cryo Storage
-        path: /docs/cargo-handbook/cryo
-      - label: Living Organisms
-        path: /docs/cargo-handbook/living
-      - label: Anomalous Artifacts
-        path: /docs/cargo-handbook/anomalous
-  - title: Fleet Management
-    items:
-      - label: Warp Drives
-        path: /docs/fleet/warp-drives
-      - label: Refueling
-        path: /docs/fleet/refueling
-      - label: Maintenance
-        path: /docs/fleet/maintenance
-      - label: Crew Requirements
-        path: /docs/fleet/crew
-  - title: Compliance
-    items:
-      - label: Customs Clearance
-        path: /docs/compliance/customs
-      - label: Quarantine Protocols
-        path: /docs/compliance/quarantine
-      - label: Interstellar Treaties
-        path: /docs/compliance/treaties
-  - title: Support
-    items:
-      - label: Contact Dispatch
-        path: /docs/support/contact
-      - label: FAQ
-        path: /docs/support/faq
-      - label: Escalations
-        path: /docs/support/escalations
+footer:
+  columns:
+    - title: Product
+      links:
+        - label: Features
+          href: https://rapidocweb.com
+        - label: Docs
+          href: /docs/documentation
+    - title: Company
+      links:
+        - label: About
+          href: /about
+        - label: Blog
+          href: /blog
+        - label: Careers
+          href: /careers
+    - title: Resources
+      links:
+        - label: API Reference
+          href: /apis/shipments
+        - label: Status
+          href: /status
+        - label: Support
+          href: /docs/support/contact
+    - title: Legal
+      links:
+        - label: Privacy
+          href: /privacy
+        - label: Terms
+          href: /terms
+        - label: Security
+          href: /security
+  social:
+    - icon: github
+      href: https://github.com/rapi-doc/RapiDoc
+    - icon: x
+      href: https://x.com
+    - icon: discord
+      href: https://discord.gg
+  copyright: © 2026 Cosmo Cargo, Inc. All rights reserved.
 rapidoc:
   render-style: read
   schema-style: tree
-  show-header: "false"
-  show-side-nav: "false"
-  color-scheme: dark
-  primary-color: "#f76b39"
-
-theme:
-  font:
-    name: "Inter"
-    url: "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"

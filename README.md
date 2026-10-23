@@ -10,9 +10,9 @@ It demonstrates a full-featured developer portal for **Cosmo Cargo Inc.**, a fic
 
 ```text
 demo-api-portal/
-├── rapidoc.config.yaml             # Portal config: site, docs, apis, navigation, rapidoc, theme
+├── rapidoc.config.yaml             # Portal config (v2): site, theme, header, navigation tabs, apis, footer, rapidoc
 ├── specs/                          # OpenAPI specifications
-│   ├── shipments.json              # Shipment API (featured)
+│   ├── shipments.json              # Shipment API (has its own header tab)
 │   ├── label-v3.json               # Labels & Stamps API (label-base, label-v1, label-v2 are earlier versions)
 │   ├── webhooks.json               # Webhook API
 │   ├── interplanetary.json         # Interplanetary Shipping API
@@ -21,7 +21,9 @@ demo-api-portal/
 │   ├── docs.json                   # Cosmo Cargo Documentation API
 │   ├── cargo-containers.json       # Cargo Container Specifications API
 │   └── fleet-ops.json              # Fleet Operations API
+├── public/logo.svg                 # Header and footer logo (site.logo.src)
 ├── docs/                           # Narrative documentation (Markdown, MDX, Markdoc)
+│   ├── index.markdoc               # Home page (/): Starlight splash template, cards, a live embed
 │   ├── documentation.mdx           # Docs landing page
 │   ├── guides/first-shipment.markdoc # Markdoc guide with live Shipment API embeds ({% api-operation %})
 │   ├── shipping-process.mdx, tracking.mdx, warp-lane-tutorial.mdx, ...

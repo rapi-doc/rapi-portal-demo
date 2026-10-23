@@ -1,0 +1,38 @@
+---
+title: Cosmo Cargo Developer Platform
+description: Integrate quantum telemetry, planetary customs, warp manifests and FTL cargo transport.
+template: splash
+hero:
+  tagline: Integrate quantum telemetry, automated planetary customs, warp manifests and FTL cargo transport with OpenAPI developer tooling.
+  actions:
+    - text: Read the docs
+      link: /docs/documentation/
+      icon: right-arrow
+    - text: Book your first shipment
+      link: /docs/guides/first-shipment/
+      variant: secondary
+    - text: API Catalog
+      link: /catalog/
+      variant: minimal
+---
+
+## Built for interstellar velocity
+
+{% card-grid %}
+{% card title="Quantum-entangled tracking" icon="rocket" href="/docs/tracking/" %}
+Real-time telemetry streams across light-years with sub-millisecond precision.
+{% /card %}
+{% card title="Automated warp routing" icon="random" href="/docs/warp-lane-tutorial/" %}
+Trajectories that avoid asteroid belts, gravity wells and solar storm corridors.
+{% /card %}
+{% card title="Declarative manifests" icon="document" href="/docs/cargo-manifest-guide/" %}
+Planetary quarantine clearance and multi-sector customs checks, driven by webhooks.
+{% /card %}
+{% card title="Compliance built in" icon="approve-check" href="/docs/compliance/customs/" %}
+Customs, quarantine protocols and interstellar treaties, documented step by step.
+{% /card %}
+{% /card-grid %}
+
+## Start with the Shipment API
+
+[Book your first shipment](/docs/guides/first-shipment/) walks through creating and tracking a shipment, with the live API console in the page. Browse every operation in the [Shipment API reference](/apis/shipments), or find the other eight APIs in the [API Catalog](/catalog).
