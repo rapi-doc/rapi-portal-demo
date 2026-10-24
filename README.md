@@ -58,8 +58,8 @@ node ../astro-rapidoc/packages/rapidoc-cli/src/index.js dev
 # Static build into dist/
 node ../astro-rapidoc/packages/rapidoc-cli/src/index.js build
 
-# Validate a spec
-node ../astro-rapidoc/packages/rapidoc-cli/src/index.js validate ./specs/shipments.json
+# Validate every spec in apis: (or one spec: validate ./specs/shipments.json)
+node ../astro-rapidoc/packages/rapidoc-cli/src/index.js validate
 ```
 
 `dist/` is the build output. While `dev` or `build` runs, the engine keeps its temporary Astro project in `.rapidoc-temp/` and deletes it when it finishes; both are gitignored.

@@ -1,5 +1,5 @@
 {
-  "openapi": "3.0.3",
+  "openapi": "3.1.0",
   "info": {
     "title": "Interplanetary Shipping API",
     "description": "This API enables interplanetary shipping capabilities through the Cosmo Cargo platform.\n\n## Authentication\nAll endpoints require a valid API key passed in the `X-API-Key` header.\n",
