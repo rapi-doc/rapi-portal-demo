@@ -151,45 +151,49 @@ apis:
     category: Core
   - id: labels
     spec: ./specs/label-v3.json
-    path: /catalog/api-label
     title: Labels & Stamps API
     category: Printing
   - id: webhooks
     spec: ./specs/webhooks.json
-    path: /catalog/api-webhooks
     title: Webhook API
     category: Platform
   - id: interplanetary
     spec: ./specs/interplanetary.json
-    path: /catalog/api-interplanetary
     title: Interplanetary Shipping API
     category: Interplanetary
   - id: tracking
     spec: ./specs/tracking-v1.json
-    path: /catalog/api-tracking
     title: Shipping Tracking API
     category: Core
   - id: ai-cargo
     spec: ./specs/ai-cargo.json
-    path: /catalog/api-ai-cargo
     title: AI-Powered Cargo Management API
     category: AI & Automation
   - id: docs-api
     spec: ./specs/docs.json
-    path: /catalog/api-docs
     title: Cosmo Cargo Documentation API
     category: Platform
   - id: cargo-containers
     spec: ./specs/cargo-containers.json
-    path: /catalog/api-cargo-containers
     title: Cargo Container Specifications API
     category: Core
   - id: fleet-ops
     spec: ./specs/fleet-ops.json
-    path: /catalog/api-fleet-ops
     title: Fleet Operations API
     category: Core
 footer:
+  cta:
+    title: Ready to ship across the galaxy?
+    description: Book your first interstellar shipment in minutes, with live API calls from the docs.
+    links:
+      - label: Book a shipment
+        href: /docs/guides/first-shipment
+      - label: Explore the APIs
+        href: /catalog
+  newsletter:
+    title: Mission updates
+    description: New routes, API releases and launch windows, once a month.
+    action: https://example.com/newsletter/subscribe
   columns:
     - title: Product
       links:
