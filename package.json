@@ -1,12 +1,13 @@
 {
   "name": "demo-api-portal",
   "version": "1.0.0",
-  "description": "Cosmo Cargo Inc. Interstellar Shipping Developer Portal - Dogfooding RapiDoc & @rapidoc/portal",
+  "description": "Cosmo Cargo Inc. developer portal - local dogfooding project for RapiDoc, @rapidoc/cli and @rapidoc/portal",
   "private": true,
   "scripts": {
-    "serve": "python3 -m http.server 8000",
-    "dev": "python3 -m http.server 8000",
-    "build": "echo 'Static portal ready for hosting in root or GitHub Pages'"
+    "dev": "node ../astro-rapidoc/packages/rapidoc-cli/src/index.js dev",
+    "build": "node ../astro-rapidoc/packages/rapidoc-cli/src/index.js build",
+    "validate": "node ../astro-rapidoc/packages/rapidoc-cli/src/index.js validate",
+    "preview": "python3 -m http.server 8000 --directory dist"
   },
   "keywords": [
     "rapidoc",

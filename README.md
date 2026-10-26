@@ -32,9 +32,7 @@ demo-api-portal/
 │   ├── compliance/                 # Customs, quarantine, treaties
 │   ├── fleet/                      # Crew, maintenance, refueling, warp drives
 │   └── support/                    # Contact, escalations, FAQ
-├── index.html                      # Legacy standalone RapiDoc test shell
-├── package.json
-└── .github/workflows/deploy.yml    # GitHub Pages deployment
+└── package.json                    # npm scripts that run the monorepo's rapidoc CLI
 ```
 
 ### Test fixtures
@@ -49,18 +47,16 @@ Some files are kept as fixtures for the `@rapidoc/portal` and `@rapidoc/cli` tes
 
 ## Local Development
 
-The portal is built with the `rapidoc` CLI from the RapiDoc monorepo (`astro-rapidoc`), expected as a sibling checkout at `../astro-rapidoc`.
+This project is for local testing only and is not published. It is built with the `rapidoc` CLI from the RapiDoc monorepo (`astro-rapidoc`), expected as a sibling checkout at `../astro-rapidoc`, so it always uses that checkout's current branch. Once `@rapidoc/cli` and `@rapidoc/portal` are published, it will depend on them like any other portal.
 
 ```bash
-# Live dev server with hot reload on http://localhost:4321
-node ../astro-rapidoc/packages/rapidoc-cli/src/index.js dev
-
-# Static build into dist/
-node ../astro-rapidoc/packages/rapidoc-cli/src/index.js build
-
-# Validate every spec in apis: (or one spec: validate ./specs/shipments.json)
-node ../astro-rapidoc/packages/rapidoc-cli/src/index.js validate
+npm run dev        # live dev server with hot reload on http://localhost:4321
+npm run build      # static build into dist/
+npm run preview    # serve dist/ on http://localhost:8000
+npm run validate   # validate every spec in apis: (one spec: npm run validate -- ./specs/shipments.json)
 ```
+
+From the monorepo, `npm run build:demo` rebuilds the RapiDoc bundle first and then builds this project.
 
 `dist/` is the build output. While `dev` or `build` runs, the engine keeps its temporary Astro project in `.rapidoc-temp/` and deletes it when it finishes; both are gitignored.
 
