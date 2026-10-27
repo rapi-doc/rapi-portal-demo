@@ -1,0 +1,30 @@
+---
+title: Billing runbook
+description: Refunds and credit notes, for the finance team.
+---
+
+Internal: for the **finance** and **platform-admin** roles.
+
+## Refund a lost or damaged parcel
+
+{% steps %}
+{% step title="Find the invoice" %}
+Search by customer with `GET /invoices?customer_id=…`.
+{% /step %}
+{% step title="Refund" %}
+Refund the parcel's line, with the reason `lost_parcel` or `damaged_parcel`. Always send a fresh `Idempotency-Key`.
+{% /step %}
+{% step title="Check" %}
+The refund starts as `pending` and becomes `succeeded` when the payment provider confirms.
+{% /step %}
+{% /steps %}
+
+{% api-operation spec="billing" path="/refunds" method="post" /%}
+
+{% callout type="info" title="Generated data" %}
+The Billing API spec has no examples, so the mock server makes up invoices and refunds from the schemas. Every run gives the same data.
+{% /callout %}
+
+## Goodwill credit
+
+For a customer who had a bad week, issue a credit note instead of a refund (`POST /credit-notes`); it is used up by their next invoices.

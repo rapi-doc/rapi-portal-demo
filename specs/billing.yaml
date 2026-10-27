@@ -1,0 +1,322 @@
+openapi: 3.1.0
+info:
+  title: Billing API
+  version: 3.0.1
+  summary: Invoices, refunds and credit notes (internal).
+  description: |
+    Internal API of the Rapid Parcels finance team.
+
+    **This spec has no examples on purpose**: the mock server must generate responses from the schemas
+    (formats, patterns, enums, ranges).
+
+    **Authorization.** Access tokens for `https://api.rapidocui.com`: `billing:read` to read, `billing:write` to issue
+    refunds and credit notes. Write operations need an `Idempotency-Key`.
+  contact:
+    name: Rapid Parcels Finance Engineering
+    email: finance-eng@rapidparcels.example
+servers:
+  - url: http://localhost:4010/billing
+    description: Mock server (rapidoc mock)
+  - url: https://api.rapidparcels.example/v1/billing
+    description: Production (documentation only)
+tags:
+  - name: Invoices
+  - name: Refunds
+  - name: Credit notes
+  - name: Balance
+paths:
+  /invoices:
+    get:
+      operationId: listInvoices
+      tags: [Invoices]
+      summary: List invoices
+      security:
+        - oauth2: ['billing:read']
+        - bearerAuth: []
+      parameters:
+        - name: customer_id
+          in: query
+          schema: { $ref: '#/components/schemas/CustomerId' }
+        - name: status
+          in: query
+          schema: { $ref: '#/components/schemas/InvoiceStatus' }
+        - name: issued_from
+          in: query
+          schema: { type: string, format: date }
+        - name: issued_to
+          in: query
+          schema: { type: string, format: date }
+        - name: page
+          in: query
+          schema: { type: integer, minimum: 1, default: 1 }
+        - name: per_page
+          in: query
+          schema: { type: integer, minimum: 1, maximum: 200, default: 50 }
+      responses:
+        '200':
+          description: A page of invoices.
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [data, page, per_page, total]
+                properties:
+                  data:
+                    type: array
+                    maxItems: 200
+                    items: { $ref: '#/components/schemas/Invoice' }
+                  page: { type: integer, minimum: 1 }
+                  per_page: { type: integer, minimum: 1, maximum: 200 }
+                  total: { type: integer, minimum: 0 }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+  /invoices/{invoiceId}:
+    get:
+      operationId: getInvoice
+      tags: [Invoices]
+      summary: Get an invoice
+      security:
+        - oauth2: ['billing:read']
+        - bearerAuth: []
+      parameters:
+        - name: invoiceId
+          in: path
+          required: true
+          schema: { $ref: '#/components/schemas/InvoiceId' }
+      responses:
+        '200':
+          description: The invoice with its lines.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Invoice' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+        '404': { $ref: '#/components/responses/NotFound' }
+  /refunds:
+    post:
+      operationId: createRefund
+      tags: [Refunds]
+      summary: Refund part or all of an invoice
+      security:
+        - oauth2: ['billing:write']
+        - bearerAuth: []
+      parameters:
+        - $ref: '#/components/parameters/IdempotencyKey'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [invoice_id, amount, reason]
+              properties:
+                invoice_id: { $ref: '#/components/schemas/InvoiceId' }
+                amount: { $ref: '#/components/schemas/Money' }
+                reason: { $ref: '#/components/schemas/RefundReason' }
+                note: { type: string, maxLength: 500 }
+      responses:
+        '201':
+          description: The refund.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Refund' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+        '422':
+          description: The amount is more than what is left to refund.
+          content:
+            application/problem+json:
+              schema: { $ref: '#/components/schemas/Problem' }
+  /refunds/{refundId}:
+    get:
+      operationId: getRefund
+      tags: [Refunds]
+      summary: Get a refund
+      security:
+        - oauth2: ['billing:read']
+        - bearerAuth: []
+      parameters:
+        - name: refundId
+          in: path
+          required: true
+          schema: { type: string, pattern: '^ref_[A-Z0-9]{8}$' }
+      responses:
+        '200':
+          description: The refund.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Refund' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+        '404': { $ref: '#/components/responses/NotFound' }
+  /credit-notes:
+    post:
+      operationId: createCreditNote
+      tags: [Credit notes]
+      summary: Issue a credit note
+      security:
+        - oauth2: ['billing:write']
+        - bearerAuth: []
+      parameters:
+        - $ref: '#/components/parameters/IdempotencyKey'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [customer_id, amount, valid_until]
+              properties:
+                customer_id: { $ref: '#/components/schemas/CustomerId' }
+                amount: { $ref: '#/components/schemas/Money' }
+                valid_until: { type: string, format: date }
+      responses:
+        '201':
+          description: The credit note.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/CreditNote' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+  /balance:
+    get:
+      operationId: getBalance
+      tags: [Balance]
+      summary: Account balance per currency
+      security:
+        - oauth2: ['billing:read']
+        - bearerAuth: []
+      parameters:
+        - name: customer_id
+          in: query
+          required: true
+          schema: { $ref: '#/components/schemas/CustomerId' }
+      responses:
+        '200':
+          description: Open amounts and available credit.
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [customer_id, balances, as_of]
+                properties:
+                  customer_id: { $ref: '#/components/schemas/CustomerId' }
+                  balances:
+                    type: array
+                    minItems: 1
+                    maxItems: 3
+                    items:
+                      type: object
+                      required: [currency, open, credit]
+                      properties:
+                        currency: { $ref: '#/components/schemas/Currency' }
+                        open: { $ref: '#/components/schemas/Amount' }
+                        credit: { $ref: '#/components/schemas/Amount' }
+                  as_of: { type: string, format: date-time }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+components:
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      description: Sign in with your Rapid Parcels staff account (Auth0). Tokens are issued for `https://api.rapidocui.com`.
+      flows:
+        authorizationCode:
+          authorizationUrl: https://rapidocui.us.auth0.com/authorize
+          tokenUrl: https://rapidocui.us.auth0.com/oauth/token
+          scopes:
+            billing:read: Read invoices, refunds and balances
+            billing:write: Issue refunds and credit notes
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: Paste an access token for `https://api.rapidocui.com` with the permission listed on the operation.
+  parameters:
+    IdempotencyKey:
+      name: Idempotency-Key
+      in: header
+      required: true
+      schema: { type: string, format: uuid }
+  schemas:
+    CustomerId: { type: string, pattern: '^cus_[A-Z0-9]{8}$' }
+    InvoiceId: { type: string, pattern: '^inv_[A-Z0-9]{8}$' }
+    Currency: { type: string, enum: [EUR, GBP, USD, CHF] }
+    Amount: { type: string, pattern: '^\d{1,7}\.\d{2}$', description: Decimal amount as a string. }
+    Money:
+      type: object
+      required: [amount, currency]
+      properties:
+        amount: { $ref: '#/components/schemas/Amount' }
+        currency: { $ref: '#/components/schemas/Currency' }
+    InvoiceStatus: { type: string, enum: [draft, open, paid, overdue, void] }
+    RefundReason: { type: string, enum: [lost_parcel, damaged_parcel, late_delivery, duplicate_charge, goodwill] }
+    InvoiceLine:
+      type: object
+      required: [description, quantity, unit_price]
+      properties:
+        description: { type: string, minLength: 3, maxLength: 120 }
+        shipment_id: { type: string, pattern: '^shp_[A-Z0-9]{6}$' }
+        quantity: { type: integer, minimum: 1, maximum: 500 }
+        unit_price: { $ref: '#/components/schemas/Money' }
+        vat_rate: { type: number, minimum: 0, maximum: 0.27, multipleOf: 0.01 }
+    Invoice:
+      type: object
+      required: [id, customer_id, number, status, issued_on, due_on, total]
+      properties:
+        id: { $ref: '#/components/schemas/InvoiceId' }
+        customer_id: { $ref: '#/components/schemas/CustomerId' }
+        number: { type: string, pattern: '^RP-\d{4}-\d{6}$' }
+        status: { $ref: '#/components/schemas/InvoiceStatus' }
+        issued_on: { type: string, format: date }
+        due_on: { type: string, format: date }
+        paid_at: { type: [string, 'null'], format: date-time }
+        total: { $ref: '#/components/schemas/Money' }
+        lines:
+          type: array
+          minItems: 1
+          maxItems: 5
+          items: { $ref: '#/components/schemas/InvoiceLine' }
+    Refund:
+      type: object
+      required: [id, invoice_id, amount, reason, status, created_at]
+      properties:
+        id: { type: string, pattern: '^ref_[A-Z0-9]{8}$' }
+        invoice_id: { $ref: '#/components/schemas/InvoiceId' }
+        amount: { $ref: '#/components/schemas/Money' }
+        reason: { $ref: '#/components/schemas/RefundReason' }
+        status: { type: string, enum: [pending, succeeded, failed] }
+        created_at: { type: string, format: date-time }
+    CreditNote:
+      type: object
+      required: [id, customer_id, amount, valid_until]
+      properties:
+        id: { type: string, pattern: '^crn_[A-Z0-9]{8}$' }
+        customer_id: { $ref: '#/components/schemas/CustomerId' }
+        amount: { $ref: '#/components/schemas/Money' }
+        valid_until: { type: string, format: date }
+        used: { $ref: '#/components/schemas/Amount' }
+    Problem:
+      type: object
+      required: [type, title, status]
+      properties:
+        type: { type: string, format: uri }
+        title: { type: string }
+        status: { type: integer, minimum: 400, maximum: 599 }
+        detail: { type: string }
+  responses:
+    Unauthorized:
+      description: No access token, or it is invalid or expired.
+      content:
+        application/problem+json:
+          schema: { $ref: '#/components/schemas/Problem' }
+    Forbidden:
+      description: The token lacks the permission this operation needs.
+      content:
+        application/problem+json:
+          schema: { $ref: '#/components/schemas/Problem' }
+    NotFound:
+      description: Not found.
+      content:
+        application/problem+json:
+          schema: { $ref: '#/components/schemas/Problem' }

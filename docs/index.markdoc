@@ -1,38 +1,42 @@
 ---
-title: Cosmo Cargo Developer Platform
-description: Integrate quantum telemetry, planetary customs, warp manifests and FTL cargo transport.
+title: Ship, track and bill parcels
+description: Ship, track and bill parcels with the Rapid Parcels APIs.
 template: splash
 hero:
-  tagline: Integrate quantum telemetry, automated planetary customs, warp manifests and FTL cargo transport with OpenAPI developer tooling.
+  tagline: Quote, ship and track parcels across Europe. Public prices for everyone; shipping, partner and internal APIs once you sign in.
   actions:
-    - text: Read the docs
-      link: /docs/documentation/
+    - text: Get started
+      link: /docs/getting-started/
       icon: right-arrow
-    - text: Book your first shipment
-      link: /docs/guides/first-shipment/
+    - text: How sign-in works
+      link: /docs/authentication/
       variant: secondary
     - text: API Catalog
       link: /catalog/
       variant: minimal
 ---
 
-## Built for interstellar velocity
+## Six APIs, one portal
 
 {% card-grid %}
-{% card title="Quantum-entangled tracking" icon="rocket" href="/docs/tracking/" %}
-Real-time telemetry streams across light-years with sub-millisecond precision.
+{% card title="Rates" icon="star" href="/apis/rates" %}
+Public prices and service levels. No sign-in needed; try it right below.
 {% /card %}
-{% card title="Automated warp routing" icon="random" href="/docs/warp-lane-tutorial/" %}
-Trajectories that avoid asteroid belts, gravity wells and solar storm corridors.
+{% card title="Shipments" icon="rocket" href="/apis/shipments" %}
+Create, list and cancel shipments, print labels, receive webhooks. For shop developers.
 {% /card %}
-{% card title="Declarative manifests" icon="document" href="/docs/cargo-manifest-guide/" %}
-Planetary quarantine clearance and multi-sector customs checks, driven by webhooks.
+{% card title="Tracking" icon="information" href="/apis/tracking" %}
+Parcel events and push subscriptions, with OAuth or an API key.
 {% /card %}
-{% card title="Compliance built in" icon="approve-check" href="/docs/compliance/customs/" %}
-Customs, quarantine protocols and interstellar treaties, documented step by step.
+{% card title="Carrier Partners" icon="puzzle" href="/apis/carriers" %}
+Manifests, label uploads and pickups for partner carriers.
 {% /card %}
 {% /card-grid %}
 
-## Start with the Shipment API
+The **Billing** and **Admin** APIs are internal; they appear in the catalog with a lock until you sign in with a role that may read them.
 
-[Book your first shipment](/docs/guides/first-shipment/) walks through creating and tracking a shipment, with the live API console in the page. Browse every operation in the [Shipment API reference](/apis/shipments), or find the other eight APIs in the [API Catalog](/catalog).
+## Quote a parcel now
+
+The Rates API is public, so this console works without signing in. It sends the request to the mock server (`rapidoc mock`) on your machine.
+
+{% api-operation spec="rates" path="/rates" method="get" /%}

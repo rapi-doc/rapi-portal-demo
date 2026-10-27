@@ -1,0 +1,377 @@
+openapi: 3.1.0
+info:
+  title: Carrier Partners API
+  version: 0.9.0
+  summary: For partner carriers that deliver Rapid Parcels' last mile.
+  description: |
+    Partner carriers pick up manifests of parcels, upload the labels they print, and book pickups at Rapid Parcels hubs.
+
+    **Authorization.** Access tokens for `https://api.rapidocui.com`: `carriers:read` to read manifests and services,
+    `carriers:write` to upload labels and book or update pickups.
+  contact:
+    name: Rapid Parcels Partner Desk
+    email: partners@rapidparcels.example
+servers:
+  - url: http://localhost:4010/carriers
+    description: Mock server (rapidoc mock)
+  - url: https://api.rapidparcels.example/v1/partners
+    description: Production (documentation only)
+tags:
+  - name: Manifests
+    description: The parcels a carrier collects at a hub.
+  - name: Labels
+    description: Labels a carrier prints with its own system.
+  - name: Pickups
+    description: Collection slots at hubs.
+  - name: Services
+    description: Delivery services a carrier offers.
+paths:
+  /manifests:
+    get:
+      operationId: listManifests
+      tags: [Manifests]
+      summary: List manifests
+      security:
+        - oauth2: ['carriers:read']
+        - bearerAuth: []
+      parameters:
+        - name: hub
+          in: query
+          schema: { type: string }
+          example: HUB-LIL
+        - name: date
+          in: query
+          schema: { type: string, format: date }
+          example: '2026-11-03'
+      responses:
+        '200':
+          description: Manifests for the hub and day.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items: { $ref: '#/components/schemas/Manifest' }
+              example:
+                data:
+                  - id: man_4H2C8E
+                    hub: HUB-LIL
+                    date: '2026-11-03'
+                    parcels: 184
+                    status: ready
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+  /manifests/{manifestId}:
+    get:
+      operationId: getManifest
+      tags: [Manifests]
+      summary: Get a manifest with its parcels
+      security:
+        - oauth2: ['carriers:read']
+        - bearerAuth: []
+      parameters:
+        - name: manifestId
+          in: path
+          required: true
+          schema: { type: string }
+          example: man_4H2C8E
+      responses:
+        '200':
+          description: The manifest.
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/Manifest'
+                  - type: object
+                    properties:
+                      items:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            tracking_number: { type: string }
+                            weight_kg: { type: number }
+                            destination_postal_code: { type: string }
+              example:
+                id: man_4H2C8E
+                hub: HUB-LIL
+                date: '2026-11-03'
+                parcels: 2
+                status: ready
+                items:
+                  - { tracking_number: RP123456789FR, weight_kg: 2.5, destination_postal_code: '75001' }
+                  - { tracking_number: RP123456790FR, weight_kg: 0.8, destination_postal_code: '59000' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+        '404': { $ref: '#/components/responses/NotFound' }
+  /labels:
+    post:
+      operationId: uploadLabel
+      tags: [Labels]
+      summary: Upload a carrier label
+      description: Upload the label your system printed for a parcel, as PDF or PNG (multipart form).
+      security:
+        - oauth2: ['carriers:write']
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required: [tracking_number, file]
+              properties:
+                tracking_number: { type: string, description: Rapid Parcels tracking number. }
+                carrier_reference: { type: string, description: Your own parcel id. }
+                format: { type: string, enum: [pdf, png], default: pdf }
+                file:
+                  type: string
+                  contentMediaType: application/octet-stream
+                  description: The label file (max 2 MB).
+            encoding:
+              file:
+                contentType: application/pdf, image/png
+      responses:
+        '201':
+          description: Stored.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id: { type: string }
+                  tracking_number: { type: string }
+                  size_bytes: { type: integer }
+              example: { id: lbl_8M3Q1Z, tracking_number: RP123456789FR, size_bytes: 48213 }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+        '413':
+          description: The file is larger than 2 MB.
+          content:
+            application/problem+json:
+              schema: { $ref: '#/components/schemas/Problem' }
+              example: { type: https://developers.rapidparcels.example/problems/too-large, title: Label too large, status: 413 }
+  /pickups:
+    post:
+      operationId: bookPickup
+      tags: [Pickups]
+      summary: Book a pickup
+      description: Either a scheduled slot or an on-demand pickup; `type` decides which fields apply.
+      security:
+        - oauth2: ['carriers:write']
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/PickupRequest' }
+            examples:
+              scheduled:
+                summary: A slot tomorrow morning
+                value: { type: scheduled, hub: HUB-LIL, slot_start: '2026-11-04T07:00:00Z', vehicles: 2 }
+              onDemand:
+                summary: As soon as possible
+                value: { type: on_demand, hub: HUB-LIL, ready_by: '2026-11-03T15:00:00Z', parcels_estimate: 40 }
+      responses:
+        '201':
+          description: The booked pickup.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Pickup' }
+              example: { id: pck_2W7T5R, type: scheduled, hub: HUB-LIL, status: confirmed, slot_start: '2026-11-04T07:00:00Z', vehicles: 2 }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+        '409':
+          description: The slot is full.
+          content:
+            application/problem+json:
+              schema: { $ref: '#/components/schemas/Problem' }
+              example: { type: https://developers.rapidparcels.example/problems/slot-full, title: Slot full, status: 409 }
+  /pickups/{pickupId}/status:
+    put:
+      operationId: updatePickupStatus
+      tags: [Pickups]
+      summary: Report pickup progress
+      security:
+        - oauth2: ['carriers:write']
+        - bearerAuth: []
+      parameters:
+        - name: pickupId
+          in: path
+          required: true
+          schema: { type: string }
+          example: pck_2W7T5R
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [status]
+              properties:
+                status: { type: string, enum: [arrived, loading, departed, failed] }
+                note: { type: string }
+            example: { status: departed, note: 184 parcels loaded }
+      responses:
+        '200':
+          description: Updated pickup.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Pickup' }
+              example: { id: pck_2W7T5R, type: scheduled, hub: HUB-LIL, status: departed, slot_start: '2026-11-04T07:00:00Z', vehicles: 2 }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+        '404': { $ref: '#/components/responses/NotFound' }
+  /services:
+    get:
+      operationId: listCarrierServices
+      tags: [Services]
+      summary: List the services you offer
+      description: Each service is ground, air or same-day; `mode` decides which fields it has.
+      security:
+        - oauth2: ['carriers:read']
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Your services.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items: { $ref: '#/components/schemas/CarrierService' }
+              example:
+                data:
+                  - { mode: ground, code: NORD-GROUND, max_weight_kg: 31.5, regions: [FR-HDF, FR-IDF] }
+                  - { mode: air, code: NORD-AIR, max_weight_kg: 20, airports: [LIL, CDG], dangerous_goods: false }
+                  - { mode: same_day, code: NORD-SD, cutoff_time: '11:00', cities: [Lille, Paris] }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+components:
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      description: Sign in with your partner account (Auth0). Tokens are issued for `https://api.rapidocui.com`.
+      flows:
+        authorizationCode:
+          authorizationUrl: https://rapidocui.us.auth0.com/authorize
+          tokenUrl: https://rapidocui.us.auth0.com/oauth/token
+          scopes:
+            carriers:read: Read manifests and services
+            carriers:write: Upload labels, book and update pickups
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: Paste an access token for `https://api.rapidocui.com` with the permission listed on the operation.
+  schemas:
+    Manifest:
+      type: object
+      required: [id, hub, date, status]
+      properties:
+        id: { type: string }
+        hub: { type: string }
+        date: { type: string, format: date }
+        parcels: { type: integer, minimum: 0 }
+        status: { type: string, enum: [open, ready, collected] }
+    ScheduledPickup:
+      type: object
+      required: [type, hub, slot_start]
+      properties:
+        type: { type: string, const: scheduled }
+        hub: { type: string }
+        slot_start: { type: string, format: date-time }
+        vehicles: { type: integer, minimum: 1, maximum: 10, default: 1 }
+    OnDemandPickup:
+      type: object
+      required: [type, hub, ready_by]
+      properties:
+        type: { type: string, const: on_demand }
+        hub: { type: string }
+        ready_by: { type: string, format: date-time }
+        parcels_estimate: { type: integer, minimum: 1 }
+    PickupRequest:
+      oneOf:
+        - $ref: '#/components/schemas/ScheduledPickup'
+        - $ref: '#/components/schemas/OnDemandPickup'
+      discriminator:
+        propertyName: type
+        mapping:
+          scheduled: '#/components/schemas/ScheduledPickup'
+          on_demand: '#/components/schemas/OnDemandPickup'
+    Pickup:
+      allOf:
+        - $ref: '#/components/schemas/PickupRequest'
+        - type: object
+          required: [id, status]
+          properties:
+            id: { type: string }
+            status: { type: string, enum: [requested, confirmed, arrived, loading, departed, failed] }
+    GroundService:
+      type: object
+      required: [mode, code]
+      properties:
+        mode: { type: string, const: ground }
+        code: { type: string }
+        max_weight_kg: { type: number }
+        regions: { type: array, items: { type: string } }
+    AirService:
+      type: object
+      required: [mode, code]
+      properties:
+        mode: { type: string, const: air }
+        code: { type: string }
+        max_weight_kg: { type: number }
+        airports: { type: array, items: { type: string, pattern: '^[A-Z]{3}$' } }
+        dangerous_goods: { type: boolean }
+    SameDayService:
+      type: object
+      required: [mode, code, cutoff_time]
+      properties:
+        mode: { type: string, const: same_day }
+        code: { type: string }
+        cutoff_time: { type: string, pattern: '^\d{2}:\d{2}$' }
+        cities: { type: array, items: { type: string } }
+    CarrierService:
+      oneOf:
+        - $ref: '#/components/schemas/GroundService'
+        - $ref: '#/components/schemas/AirService'
+        - $ref: '#/components/schemas/SameDayService'
+      discriminator:
+        propertyName: mode
+        mapping:
+          ground: '#/components/schemas/GroundService'
+          air: '#/components/schemas/AirService'
+          same_day: '#/components/schemas/SameDayService'
+    Problem:
+      type: object
+      required: [type, title, status]
+      properties:
+        type: { type: string, format: uri }
+        title: { type: string }
+        status: { type: integer }
+        detail: { type: string }
+  responses:
+    Unauthorized:
+      description: No access token, or it is invalid or expired.
+      content:
+        application/problem+json:
+          schema: { $ref: '#/components/schemas/Problem' }
+          example: { type: https://developers.rapidparcels.example/problems/unauthorized, title: Unauthorized, status: 401 }
+    Forbidden:
+      description: The token lacks the permission this operation needs.
+      content:
+        application/problem+json:
+          schema: { $ref: '#/components/schemas/Problem' }
+          example: { type: https://developers.rapidparcels.example/problems/forbidden, title: Missing permission, status: 403 }
+    NotFound:
+      description: Not found.
+      content:
+        application/problem+json:
+          schema: { $ref: '#/components/schemas/Problem' }
+          example: { type: https://developers.rapidparcels.example/problems/not-found, title: Not found, status: 404 }

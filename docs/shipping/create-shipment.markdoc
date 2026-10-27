@@ -1,0 +1,36 @@
+---
+title: Create a shipment
+description: Book a shipment, check it, and cancel it before pickup.
+---
+
+This guide is for the **shipper** role. The consoles call the Shipments API on the mock server; calls need an access token with `shipments:read` or `shipments:write`.
+
+{% callout type="info" title="Reading is not calling" %}
+Reviewers can read this page too, but their token has no Shipments permission, so every **Try** returns `403`. That's on purpose: see [Authentication](/docs/authentication).
+{% /callout %}
+
+## Book it
+
+{% steps %}
+{% step title="Quote the price" %}
+Get a quote from the public [Rates API](/docs/rates) and keep its `id`.
+{% /step %}
+{% step title="Create the shipment" %}
+Send the addresses, the parcels and the `quote_id`. Use a new `Idempotency-Key` per shipment, so a retried request can't book it twice.
+{% /step %}
+{% step title="Print the label" %}
+Download it with `GET /shipments/{shipmentId}/label` as PDF, PNG or ZPL.
+{% /step %}
+{% /steps %}
+
+{% api-operation spec="shipments" path="/shipments" method="post" /%}
+
+## Check it
+
+{% api-operation spec="shipments" path="/shipments/{shipmentId}" method="get" /%}
+
+## Cancel it
+
+Only before pickup; afterwards you get `409`.
+
+{% api-operation spec="shipments" path="/shipments/{shipmentId}/cancel" method="post" /%}

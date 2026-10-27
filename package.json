@@ -1,13 +1,14 @@
 {
   "name": "demo-api-portal",
   "version": "1.0.0",
-  "description": "Cosmo Cargo Inc. developer portal - local dogfooding project for RapiDoc, @rapidoc/cli and @rapidoc/portal",
+  "description": "Rapid Parcels developer portal - the RapiDoc demo and dogfooding project for @rapidoc/cli, @rapidoc/portal and @rapidoc/server",
   "private": true,
   "scripts": {
     "dev": "node ../astro-rapidoc/packages/rapidoc-cli/src/index.js dev",
     "build": "node ../astro-rapidoc/packages/rapidoc-cli/src/index.js build",
+    "serve": "node ../astro-rapidoc/packages/rapidoc-cli/src/index.js serve dist --port 8090",
     "validate": "node ../astro-rapidoc/packages/rapidoc-cli/src/index.js validate",
-    "preview": "python3 -m http.server 8000 --directory dist"
+    "generate:admin": "node scripts/generate-admin-spec.mjs"
   },
   "keywords": [
     "rapidoc",

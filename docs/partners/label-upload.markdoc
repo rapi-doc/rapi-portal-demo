@@ -1,0 +1,12 @@
+---
+title: Label upload
+description: Send Rapid Parcels the labels your own system prints.
+---
+
+When you print your own label for a Rapid Parcels parcel, upload it so customer service can see it. The request is a **multipart form**: the tracking number, your own reference, and the file (PDF or PNG, at most 2 MB).
+
+{% api-operation spec="carriers" path="/labels" method="post" /%}
+
+{% callout type="caution" title="One label per parcel" %}
+Uploading again for the same tracking number replaces the earlier label.
+{% /callout %}

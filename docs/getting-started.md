@@ -1,36 +1,41 @@
-# Welcome to the BrewCraft Developer Platform
-
-BrewCraft provides a modern, RESTful API platform enabling restaurants, coffee shops, and third-party delivery services to integrate seamlessly with our ordering, catalog, reservations, and loyalty ecosystems.
-
+---
+title: Getting started
+description: From a price quote to a booked shipment in three calls.
 ---
 
-## Architecture & Base URLs
+Rapid Parcels moves parcels from your warehouse to your customers. These docs cover six APIs; you need two of them to ship your first parcel.
 
-BrewCraft exposes two distinct environments:
+## 1. Quote a price (public)
 
-| Environment | Base URL | Usage |
-| :--- | :--- | :--- |
-| **Sandbox** | `https://sandbox.brewcraft.io/v1` | Automated testing, integration tests, mock transactions |
-| **Production** | `https://api.brewcraft.io/v1` | Live orders, payment processing, customer data |
+The [Rates API](/apis/rates) needs no account. Ask what a 2.5 kg parcel from Berlin to Paris costs:
 
----
+```sh
+curl "http://localhost:4010/rates/rates?from=10115,DE&to=75001,FR&weight_kg=2.5"
+```
 
-## The BrewCraft API Suite
+Locally, requests go to the mock server (`rapidoc mock`); in production they would go to `https://api.rapidparcels.example/v1`, which is fictional.
 
-Our API surface is organized into five modular services:
+For a binding price, create a quote with `POST /rates/quote`; it stays valid for 30 minutes.
 
-1. **Orders API**: Place and track coffee, drink, and food orders with real-time status transitions.
-2. **Catalog API**: Access categorized coffee blends, origin details, pastry inventories, and dietary tags.
-3. **Reservations API**: Check table availability across patios, indoor tables, and bar seating.
-4. **Loyalty & Rewards API**: Accrue BeanPoints, query customer tiers, and redeem gift coupons.
-5. **Payments API**: Process credit cards, Apple Pay, Google Pay, and manage refunds.
+## 2. Get access to the Shipments API
 
----
+Shipping needs an account with the **shipper** role. [Authentication](/docs/authentication) explains how signing in to this portal and calling the APIs work, and why they are two different things.
 
-## Rate Limiting
+## 3. Book the shipment
 
-To maintain high availability:
-- **Sandbox**: 100 requests per minute per IP.
-- **Production**: 1,000 requests per minute per authenticated API key.
+With an access token that has the `shipments:write` permission:
 
-When you exceed these limits, requests return an HTTP `429 Too Many Requests` response with a `Retry-After` header indicating the wait time in seconds.
+```sh
+curl -X POST http://localhost:4010/shipments/shipments \
+  -H "Authorization: Bearer $RP_TOKEN" \
+  -H "Idempotency-Key: $(uuidgen)" \
+  -H "Content-Type: application/json" \
+  -d '{"service": "express", "quote_id": "quo_01HZX4M8Q2", "from": {...}, "to": {...}, "parcels": [{"weight_kg": 2.5}]}'
+```
+
+The [shipping guides](/docs/shipping/create-shipment) walk through it with the live console, once you're signed in as a shipper.
+
+## Where to go next
+
+- [Tracking](/docs/tracking): follow a parcel, or have every event pushed to your server.
+- [Errors](/docs/errors): every API answers errors the same way.

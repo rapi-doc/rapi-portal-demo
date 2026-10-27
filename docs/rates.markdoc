@@ -1,0 +1,26 @@
+---
+title: Rates and quotes
+description: Prices for a route, and binding quotes for a shipment.
+---
+
+The [Rates API](/apis/rates) is public: anyone can ask what shipping costs.
+
+{% callout type="tip" title="No sign-in needed" %}
+The consoles on this page work while you're signed out. They send requests to the mock server on your machine.
+{% /callout %}
+
+## Compare services for a route
+
+`GET /rates` lists every service level that covers the route, cheapest first.
+
+{% api-operation spec="rates" path="/rates" method="get" /%}
+
+## Lock a price with a quote
+
+A quote is binding for 30 minutes. Pass its `id` as `quote_id` when you create the shipment.
+
+{% api-operation spec="rates" path="/rates/quote" method="post" /%}
+
+## Where we deliver
+
+{% api-operation spec="rates" path="/coverage/{country}" method="get" /%}
