@@ -60,6 +60,10 @@ From the monorepo, `npm run build:demo` rebuilds the RapiDoc bundle first and th
 
 `dist/` is the build output. While `dev` or `build` runs, the engine keeps its temporary Astro project in `.rapidoc-temp/` and deletes it when it finishes; both are gitignored.
 
+### Sign-in and access rules (optional)
+
+The end of `rapidoc.config.yaml` has a commented-out `auth` and `access` example. With them, `npm run build` splits `dist/` into `public/` and `protected/`, and the portal is served with `npx rapidoc serve dist` (install `@rapidoc/server`; set `RAPIDOC_SESSION_SECRET`, `RAPIDOC_AUTH_CLIENT_SECRET` and `RAPIDOC_PUBLIC_URL`). A static host such as GitHub Pages can't check who is signed in, so a portal with rules needs `rapidoc serve`. See "Sign-in and access rules" in the `@rapidoc/portal` README.
+
 ### Keeping in sync with `@rapidoc/portal`
 
 This repo tracks the current portal code. When the portal's config structure, Markdoc tags, or CLI commands change, update `rapidoc.config.yaml` and `docs/` here to match, then run `npm run test:portal` in the monorepo (those tests load and build this repo).

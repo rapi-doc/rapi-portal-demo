@@ -236,3 +236,19 @@ footer:
 rapidoc:
   render-style: read
   schema-style: tree
+
+# Optional sign-in and access rules, enforced by `rapidoc serve` (@rapidoc/server). Left off here so
+# the demo stays a static site; uncomment to try them (secrets come from RAPIDOC_SESSION_SECRET and
+# RAPIDOC_AUTH_CLIENT_SECRET, never this file).
+# auth:
+#   issuer: https://cosmocargo.okta.com/oauth2/default
+#   clientId: portal-web
+#   scopes: [openid, profile, email, groups]
+# access:
+#   default: public
+#   rules:
+#     - path: /docs/billing/**
+#       allow:
+#         groups: [billing-team]
+#     - path: /apis/labels/**
+#       allow: signed-in
