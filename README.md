@@ -65,7 +65,13 @@ and open http://localhost:8090. `npm run serve` loads `.env` (variables already 
 
 ### Calling the APIs
 
-Every spec lists the mock server first (`http://localhost:4010/<api id>`), served by `rapidoc mock` (in development in the monorepo). `https://api.rapidparcels.example/v1` is documentation only.
+Every spec lists the mock server first (`http://localhost:4010/<api id>`); `https://api.rapidparcels.example/v1` is documentation only. Start the mock with:
+
+```bash
+npm run mock       # all six APIs on http://localhost:4010/<api id>
+```
+
+It answers with the specs' examples (Billing has none, so its data is generated) and enforces each operation's `security` like a real API: with `RAPIDOC_MOCK_ISSUER` and `RAPIDOC_MOCK_AUDIENCE` set (see `.env.example`), a call needs an Auth0 access token for `https://api.rapidocui.com` whose `permissions` include the operation's scope (`shipments:read`, …): no or invalid token → 401, token without the permission → 403. Tracking also accepts any `X-Api-Key`; Rates is open. `Prefer: code=404` returns a documented error response.
 
 ### The Zudoku fixture
 
