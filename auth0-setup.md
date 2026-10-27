@@ -7,7 +7,7 @@ Two things come out of a sign-in, and they are set up separately:
 - **Roles** → the ID token's `https://rapidoc/roles` claim → what the portal lets you **read** (`access` rules).
 - **Permissions** → the access token's `permissions` claim → what the APIs (and `rapidoc mock`) let you **execute**.
 
-Nothing here goes into `rapidoc.config.yaml` except the issuer (already there). The client ID and secret are environment variables when you run `rapidoc serve`.
+Nothing here goes into `rapidoc.config.yaml` except the issuer (already there). The client ID and secret are environment variables of `rapidoc serve`, kept in the demo's git-ignored `.env`.
 
 ---
 
@@ -58,7 +58,7 @@ Use the existing **Default App** or create a dedicated one (clearer): **Applicat
   - Allowed Logout URLs: `http://localhost:8090/`
   - (When the demo is hosted, add the same paths on `https://demo.rapidocui.com`.)
 - [ ] **Settings → Advanced → Grant Types:** `Authorization Code` is on.
-- [ ] Copy the **Client ID** and **Client Secret** for `rapidoc serve` (step 9). Never paste the secret into a file in the repo.
+- [ ] Copy the **Client ID** and **Client Secret** into the demo's git-ignored `.env` (step 9). Never put the secret in a committed file.
 
 ## 5. Roles (and their permissions)
 
@@ -115,15 +115,20 @@ Keep the claim name without dots: the portal's `claims.groups` reads dots as nes
 
 ## 9. Run the portal
 
-From `astro-rapidoc` (the demo's `rapidoc.config.yaml` already has `auth.issuer` and the access rules):
+In `demo-api-portal` (its `rapidoc.config.yaml` already has `auth.issuer` and the access rules):
+
+1. Copy `.env.example` to `.env` (git-ignored) and fill in `RAPIDOC_AUTH_CLIENT_SECRET` (from step 4) and `RAPIDOC_SESSION_SECRET` (`openssl rand -hex 32`).
+2. Build and serve:
 
 ```bash
-node packages/rapidoc-cli/src/index.js build ../demo-api-portal
+npm run build
 ```
 
 ```bash
-RAPIDOC_AUTH_CLIENT_ID=<Client ID> RAPIDOC_AUTH_CLIENT_SECRET=<Client Secret> RAPIDOC_SESSION_SECRET=$(openssl rand -hex 32) RAPIDOC_PUBLIC_URL=http://localhost:8090 node packages/rapidoc-cli/src/index.js serve ../demo-api-portal/dist --port 8090
+npm run serve
 ```
+
+Then open http://localhost:8090.
 
 ## 10. Check it
 

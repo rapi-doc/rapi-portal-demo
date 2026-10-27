@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "node ../astro-rapidoc/packages/rapidoc-cli/src/index.js dev",
     "build": "node ../astro-rapidoc/packages/rapidoc-cli/src/index.js build",
-    "serve": "node ../astro-rapidoc/packages/rapidoc-cli/src/index.js serve dist --port 8090",
+    "serve": "node --env-file-if-exists=.env ../astro-rapidoc/packages/rapidoc-cli/src/index.js serve dist --port 8090",
     "validate": "node ../astro-rapidoc/packages/rapidoc-cli/src/index.js validate",
     "generate:admin": "node scripts/generate-admin-spec.mjs"
   },

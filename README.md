@@ -55,13 +55,13 @@ npm run generate:admin   # regenerate specs/admin.json
 
 ### Serving with sign-in
 
-Set up the Auth0 tenant with [`auth0-setup.md`](auth0-setup.md), then:
+Set up the Auth0 tenant with [`auth0-setup.md`](auth0-setup.md). Then copy `.env.example` to `.env` (git-ignored), fill in the client secret and a session secret (`openssl rand -hex 32`), and run:
 
 ```bash
-RAPIDOC_AUTH_CLIENT_ID=<Client ID> RAPIDOC_AUTH_CLIENT_SECRET=<Client Secret> RAPIDOC_SESSION_SECRET=$(openssl rand -hex 32) RAPIDOC_PUBLIC_URL=http://localhost:8090 npm run serve
+npm run serve
 ```
 
-and open http://localhost:8090. The client ID and secret never go into a file in this repo.
+and open http://localhost:8090. `npm run serve` loads `.env` (variables already set in your shell win). The client secret only ever lives in `.env` or your shell, never in a committed file.
 
 ### Calling the APIs
 

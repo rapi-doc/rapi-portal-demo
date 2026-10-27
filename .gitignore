@@ -3,3 +3,6 @@ node_modules/
 dist/
 .rapidoc-temp/
 *.log
+
+# Local secrets for `npm run serve` (copy .env.example to .env)
+.env
