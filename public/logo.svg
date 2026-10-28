@@ -1,22 +1,21 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" role="img" aria-label="Rapid Parcels">
   <defs>
-    <linearGradient id="rp-tile" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#2b8ff0"/>
-      <stop offset="1" stop-color="#0a5bb8"/>
+    <linearGradient id="rp-g" gradientUnits="userSpaceOnUse" x1="4" y1="40" x2="46" y2="6">
+      <stop offset="0" stop-color="#2dd4bf"/>
+      <stop offset="1" stop-color="#8b5cf6"/>
     </linearGradient>
   </defs>
-  <!-- Tile -->
-  <rect width="48" height="48" rx="12" fill="url(#rp-tile)"/>
-  <!-- Speed lines -->
-  <g stroke="#ffffff" stroke-width="2.5" stroke-linecap="round" opacity="0.85">
-    <path d="M7 21h7"/>
-    <path d="M9.5 26.5h4.5"/>
-    <path d="M7 32h7"/>
+  <!-- Speed dashes -->
+  <g stroke="url(#rp-g)" stroke-width="3.2" stroke-linecap="round">
+    <path d="M5 18h8"/>
+    <path d="M9 24h5"/>
+    <path d="M4 30h10"/>
   </g>
-  <!-- Parcel: top, front and side faces -->
-  <path d="M19 19.5 26 14h14l-7 5.5z" fill="#ffffff"/>
-  <path d="M19 19.5h14v16H19z" fill="#ffffff" opacity="0.92"/>
-  <path d="M33 19.5 40 14v16l-7 5.5z" fill="#ffffff" opacity="0.7"/>
-  <!-- Tape across the parcel -->
-  <path d="M24.5 19.5h3v16h-3z" fill="#0a5bb8" opacity="0.28"/>
+  <!-- Hexagon -->
+  <path d="M31 6.5 45 14.5v16L31 38.5 17 30.5v-16z" fill="url(#rp-g)"/>
+  <!-- Parcel: top, left and right faces -->
+  <path d="M31 14.5 39 19l-8 4.5L23 19z" fill="#ffffff"/>
+  <path d="M23 19l8 4.5v9L23 28z" fill="#ffffff" opacity="0.88"/>
+  <path d="M39 19v9l-8 4.5v-9z" fill="#ffffff" opacity="0.66"/>
+  <path d="M27 16.75 35 21.25" stroke="#0f172a" stroke-width="1.2" opacity="0.25"/>
 </svg>

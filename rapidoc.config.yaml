@@ -11,8 +11,10 @@ site:
   banner:
     message: Demo portal for RapiDoc. Rapid Parcels is fictional; sign in with a test user to see protected APIs.
     href: /docs/authentication
+    background: "#facc15"
+    color: "#1c1917"
 theme:
-  primary: "#0f7ae5"
+  primary: "#14b8a6"
   mode: auto
 header:
   links:
@@ -20,15 +22,15 @@ header:
       items:
         - label: Rates
           href: /apis/rates
-          icon: zap
+          icon: lightning
           description: Public prices and service levels
         - label: Shipments
           href: /apis/shipments
-          icon: box
+          icon: package
           description: Create, list and cancel shipments
         - label: Tracking
           href: /apis/tracking
-          icon: satellite
+          icon: map-pin
           description: Parcel events and subscriptions
         - label: Carrier Partners
           href: /apis/carriers
@@ -62,7 +64,7 @@ navigation:
     icon: code
     api: shipments
   - label: API Catalog
-    icon: grid
+    icon: squares-four
     catalog: true
 apis:
   - id: rates
