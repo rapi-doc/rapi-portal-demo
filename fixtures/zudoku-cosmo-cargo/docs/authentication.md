@@ -31,5 +31,8 @@ Content-Type: application/json
 
 ## Security Best Practices
 
-> Keep your live secret API keys secure. Never expose secret keys in client-side code, Git commits, or public repositories.
-> Always use environment variables (e.g. `BREWCRAFT_API_KEY`) to supply credentials to your servers.
+:::lock{title="Keep live keys secret"}
+
+Never expose secret keys in client-side code, Git commits, or public repositories. Always use environment variables (e.g. `BREWCRAFT_API_KEY`) to supply credentials to your servers.
+
+:::
