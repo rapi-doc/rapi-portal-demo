@@ -124,6 +124,8 @@ auth:
   claims:
     groups: https://rapidoc/roles
   logout: idp
+  audience: https://api.rapidocui.com # the access token is for the Rapid Parcels API
+  tryIt: true # Try sends the signed-in reader's token to the mock (npm run mock)
 access:
   default: public
   rules: # first match wins

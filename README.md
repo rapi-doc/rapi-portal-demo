@@ -65,6 +65,8 @@ and open http://localhost:8090. `npm run serve` loads `.env` (variables already 
 
 ### Calling the APIs
 
+Signed in to the portal (`npm run serve`), **Try** sends your access token (`auth.tryIt`), so with `npm run mock` running every call is answered by your role's permissions: 200, or 403 naming the missing permission.
+
 Every spec lists the mock server first (`http://localhost:4010/<api id>`); `https://api.rapidparcels.example/v1` is documentation only. Start the mock with:
 
 ```bash
