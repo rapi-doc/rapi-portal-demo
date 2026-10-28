@@ -48,6 +48,8 @@ navigation:
           - getting-started
           - authentication
           - errors
+      - label: Concepts
+        autogenerate: concepts
       - label: Public APIs
         items:
           - rates
