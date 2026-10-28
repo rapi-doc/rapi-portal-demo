@@ -22,13 +22,13 @@ hero:
 {% card title="Quantum-entangled tracking" icon="rocket" href="/docs/tracking/" %}
 Real-time telemetry streams across light-years with sub-millisecond precision.
 {% /card %}
-{% card title="Automated warp routing" icon="random" href="/docs/warp-lane-tutorial/" %}
+{% card title="Automated warp routing" icon="shuffle" href="/docs/warp-lane-tutorial/" %}
 Trajectories that avoid asteroid belts, gravity wells and solar storm corridors.
 {% /card %}
-{% card title="Declarative manifests" icon="document" href="/docs/cargo-manifest-guide/" %}
+{% card title="Declarative manifests" icon="file-text" href="/docs/cargo-manifest-guide/" %}
 Planetary quarantine clearance and multi-sector customs checks, driven by webhooks.
 {% /card %}
-{% card title="Compliance built in" icon="approve-check" href="/docs/compliance/customs/" %}
+{% card title="Compliance built in" icon="seal-check" href="/docs/compliance/customs/" %}
 Customs, quarantine protocols and interstellar treaties, documented step by step.
 {% /card %}
 {% /card-grid %}

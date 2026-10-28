@@ -22,43 +22,43 @@ header:
       items:
         - label: Shipment Tracking
           href: /docs/tracking
-          icon: satellite
+          icon: planet
           description: Real-time quantum-entangled tracking across star systems
           items:
             - label: Telemetry Stream
               href: /docs/tracking
-              icon: radar
+              icon: broadcast
             - label: Sub-light Radar
               href: /docs/tracking
               icon: eye
             - label: FTL Ping Monitor
               href: /docs/tracking
-              icon: zap
+              icon: lightning
             - label: Event Webhooks
               href: /docs/tutorials/webhook-integration
-              icon: server
+              icon: hard-drives
         - label: Warp Logistics
           href: /docs/warp-lane-tutorial
-          icon: zap
+          icon: lightning
           description: FTL delivery for time-critical cargo
           items:
             - label: Hyper-lane Routing
               href: /docs/warp-lane-tutorial
-              icon: workflow
+              icon: flow-arrow
             - label: Jump Gate Protocols
               href: /docs/warp-lane-tutorial
-              icon: check
+              icon: check-circle
             - label: Gravity Well Bypass
               href: /docs/warp-lane-tutorial
               icon: rocket
             - label: Fuel Manifests
               href: /docs/fleet/refueling
-              icon: box
+              icon: package
     - label: Products
       items:
         - label: Cargo Containers
           href: /docs/cargo-manifest-guide
-          icon: box
+          icon: package
           description: Interstellar freight specifications and volume standards
         - label: Fleet Operations
           href: /docs/shipping-process
@@ -66,7 +66,7 @@ header:
           description: Warp drive maintenance and sub-light routing
         - label: Quantum Express
           href: /docs/quantum-express
-          icon: zap
+          icon: lightning
           description: Priority expedited transport for high-value cargo
         - label: Customs Clearance
           href: /docs/compliance/customs
@@ -142,7 +142,7 @@ navigation:
     icon: code
     api: shipments
   - label: API Catalog
-    icon: grid
+    icon: squares-four
     catalog: true
 apis:
   - id: shipments
