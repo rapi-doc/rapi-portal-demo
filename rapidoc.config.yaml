@@ -8,6 +8,7 @@ site:
     src: /logo.svg
     text: RAPID PARCELS
   favicon: /logo.svg
+  titleTemplate: '%s · Rapid Parcels'
   banner:
     message: Demo portal for RapiDoc. Rapid Parcels is fictional; sign in with a test user to see protected APIs.
     href: /docs/authentication
@@ -16,6 +17,7 @@ site:
 theme:
   primary: "#14b8a6"
   mode: auto
+  css: ./styles/rapid-parcels.css
 header:
   links:
     - label: APIs
