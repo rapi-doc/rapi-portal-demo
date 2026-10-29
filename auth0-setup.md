@@ -1,6 +1,6 @@
 # Auth0 setup for the Rapid Parcels demo
 
-A checklist for the `rapidocui` Auth0 tenant (`https://rapidocui.us.auth0.com/`). It sets up the people, roles and permissions from the scenario (`astro-rapidoc/packages/rapidoc-portal/design/demo-scenario.md`, sections 4–6).
+A checklist for the `rapidocui` Auth0 tenant (`https://rapidocui.us.auth0.com/`). It sets up the people, roles and permissions from the scenario (`rapidoc/packages/rapidoc-portal/design/demo-scenario.md`, sections 4–6).
 
 Two things come out of a sign-in, and they are set up separately:
 
@@ -115,7 +115,7 @@ Keep the claim name without dots: the portal's `claims.groups` reads dots as nes
 
 ## 9. Run the portal
 
-In `demo-api-portal` (its `rapidoc.config.yaml` already has `auth.issuer` and the access rules):
+In `rapi-portal-demo` (its `rapidoc.config.yaml` already has `auth.issuer` and the access rules):
 
 1. Copy `.env.example` to `.env` (git-ignored) and fill in `RAPIDOC_AUTH_CLIENT_SECRET` (from step 4) and `RAPIDOC_SESSION_SECRET` (`openssl rand -hex 32`).
 2. Build and serve:

@@ -2,7 +2,7 @@
 
 The reference demo and dogfooding project for **RapiDoc**, **`@rapidoc/cli`**, **`@rapidoc/portal`** and **`@rapidoc/server`**.
 
-**Rapid Parcels** is a fictional parcel network. Its six APIs and its docs were written for RapiDoc's own test cases: public and protected APIs, sign-in with Auth0, read-versus-execute permissions, and spec features from webhooks to a 144-operation admin API. The scenario (roles, permissions, who sees what) is in the monorepo: `astro-rapidoc/packages/rapidoc-portal/design/demo-scenario.md`.
+**Rapid Parcels** is a fictional parcel network. Its six APIs and its docs were written for RapiDoc's own test cases: public and protected APIs, sign-in with Auth0, read-versus-execute permissions, and spec features from webhooks to a 144-operation admin API. The scenario (roles, permissions, who sees what) is in the monorepo: `rapidoc/packages/rapidoc-portal/design/demo-scenario.md`.
 
 All example hosts and addresses use the reserved domain `rapidparcels.example`; real services (test users, the Auth0 API identifier) use `rapidocui.com`.
 
@@ -11,7 +11,7 @@ All example hosts and addresses use the reserved domain `rapidparcels.example`; 
 ## Repository structure
 
 ```text
-demo-api-portal/
+rapi-portal-demo/
 ├── rapidoc.config.yaml      # Portal config: site, navigation, APIs, sign-in (auth) and access rules
 ├── specs/
 │   ├── rates.yaml           # Public: no auth; examples everywhere (OpenAPI 3.1)
@@ -44,7 +44,7 @@ Reading is decided by the portal (roles); calling an API is decided by the API's
 
 ## Local development
 
-Built with the `rapidoc` CLI from the sibling monorepo checkout (`../astro-rapidoc`), so it always uses that checkout's current code.
+Built with the `rapidoc` CLI from the sibling monorepo checkout (`../rapidoc`), so it always uses that checkout's current code.
 
 ```bash
 npm run dev        # dev server on http://localhost:4321 (access rules are not enforced in dev)

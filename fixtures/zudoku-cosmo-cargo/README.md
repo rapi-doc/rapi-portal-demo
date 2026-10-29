@@ -22,10 +22,10 @@ The monorepo tests depend on them. **Don't delete or rename** anything here with
 
 ## Build it with RapiDoc
 
-From the monorepo (`astro-rapidoc`):
+From the monorepo (`rapidoc`):
 
 ```bash
-node packages/rapidoc-cli/src/index.js build ../demo-api-portal/fixtures/zudoku-cosmo-cargo
+node packages/rapidoc-cli/src/index.js build ../rapi-portal-demo/fixtures/zudoku-cosmo-cargo
 ```
 
 The `rapidoc.config.yaml` ends with a commented-out `auth`/`access` example; the fixture itself stays a plain static site, because the tests expect that layout.

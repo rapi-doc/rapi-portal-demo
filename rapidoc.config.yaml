@@ -1,6 +1,6 @@
-# yaml-language-server: $schema=../astro-rapidoc/packages/rapidoc-portal/schema.json
+# yaml-language-server: $schema=../rapidoc/packages/rapidoc-portal/schema.json
 # Rapid Parcels: the RapiDoc demo portal. Scenario, roles and permissions:
-# astro-rapidoc/packages/rapidoc-portal/design/demo-scenario.md. Auth0 setup: auth0-setup.md.
+# rapidoc/packages/rapidoc-portal/design/demo-scenario.md. Auth0 setup: auth0-setup.md.
 site:
   title: Rapid Parcels Developers
   description: Ship, track and bill parcels with the Rapid Parcels APIs. A fictional company, built to demo RapiDoc.
