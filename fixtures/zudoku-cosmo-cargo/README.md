@@ -19,6 +19,7 @@ The monorepo tests depend on them. **Don't delete or rename** anything here with
 - `docs/guides/order-fulfillment.markdoc`, `docs/guides/loyalty-and-rewards.markdoc` (Markdoc tag coverage; their `api-operation` embeds name APIs that are not in `apis:`, which exercises the "API operation not found" notice)
 - `docs/tutorials/table-reservation-flow.mdx`, `docs/tutorials/webhook-integration.mdx`
 - `specs/label-v3.json` with `label-base.json` (a spec with relative `$ref`s to another file)
+- `specs/label-v2.json`, `label-v1.json`: with `label-v3.json`, the versions of the `labels` API (`versions:` in `rapidoc.config.yaml`; v3 at `/apis/labels`, the others at `/apis/labels/v2` and `/apis/labels/v1`)
 
 ## Build it with RapiDoc
 

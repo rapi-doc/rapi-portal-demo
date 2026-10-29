@@ -150,9 +150,15 @@ apis:
     title: Shipment API
     category: Core
   - id: labels
-    spec: ./specs/label-v3.json
     title: Labels & Stamps API
     category: Printing
+    versions:
+      - spec: ./specs/label-v3.json
+        version: v3
+      - spec: ./specs/label-v2.json
+        version: v2
+      - spec: ./specs/label-v1.json
+        version: v1
   - id: webhooks
     spec: ./specs/webhooks.json
     title: Webhook API
