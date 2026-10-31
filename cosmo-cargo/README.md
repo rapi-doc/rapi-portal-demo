@@ -5,7 +5,7 @@ A complete RapiDoc portal project built on **Cosmo Cargo**, the fictional inters
 1. **Test fixture** for the RapiDoc monorepo: `@rapidoc/portal` and `@rapidoc/cli` tests load and build this folder (`RAPIDOC_DEMO_PORTAL_DIR` overrides its location).
 2. **Side-by-side comparison** with Zudoku: the same specs and docs built by both products.
 
-The main demo of this repository is **Rapid Parcels** (one folder up), with specs written for RapiDoc's own test cases.
+The main demo of this repository is **Rapid Parcels** (`../rapid-parcels/`), with specs written for RapiDoc's own test cases.
 
 ## Origin and license
 
@@ -26,7 +26,7 @@ The monorepo tests depend on them. **Don't delete or rename** anything here with
 From the monorepo (`rapidoc`):
 
 ```bash
-node packages/rapidoc-cli/src/index.js build ../rapi-portal-demo/fixtures/zudoku-cosmo-cargo
+node packages/rapidoc-cli/src/index.js build ../rapi-portal-demo/cosmo-cargo
 ```
 
 The `rapidoc.config.yaml` ends with a commented-out `auth`/`access` example; the fixture itself stays a plain static site, because the tests expect that layout.

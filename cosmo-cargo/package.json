@@ -1,0 +1,13 @@
+{
+  "name": "cosmo-cargo",
+  "version": "0.1.0",
+  "description": "Cosmo Cargo developer portal: Zudoku's demo built with RapiDoc Portal, and the monorepo's test fixture",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "node ../../rapidoc/packages/rapidoc-cli/src/index.js dev",
+    "build": "node ../../rapidoc/packages/rapidoc-cli/src/index.js build",
+    "serve": "node ../../rapidoc/packages/rapidoc-cli/src/index.js serve dist",
+    "validate": "node ../../rapidoc/packages/rapidoc-cli/src/index.js validate"
+  }
+}

@@ -1,0 +1,24 @@
+---
+title: "Bookstore Developer Portal"
+description: Guides and interactive API reference.
+template: splash
+hero:
+  # layout: stacked  # split (default): text left, image right; stacked: centred, image below
+  tagline: Everything you need to integrate with our APIs, from your first request to production.
+  actions:
+    - text: Get started
+      link: /docs/getting-started/
+      icon: right-arrow
+    - text: API reference
+      link: /apis/bookstore
+      variant: minimal
+---
+
+{% card-grid %}
+{% card title="Getting Started" icon="rocket" href="/docs/getting-started/" %}
+Authenticate and make your first request.
+{% /card %}
+{% card title="Architecture Overview" icon="book-open" href="/docs/guides/overview/" %}
+How the platform handles caching, rate limits and failover.
+{% /card %}
+{% /card-grid %}

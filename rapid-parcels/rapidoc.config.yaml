@@ -1,4 +1,4 @@
-# yaml-language-server: $schema=../rapidoc/packages/rapidoc-portal/schema.json
+# yaml-language-server: $schema=../../rapidoc/packages/rapidoc-portal/schema.json
 # Rapid Parcels: the RapiDoc demo portal. Scenario, roles and permissions:
 # rapidoc/packages/rapidoc-portal/design/demo-scenario.md. Auth0 setup: auth0-setup.md.
 site:

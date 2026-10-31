@@ -1,0 +1,58 @@
+---
+title: Architecture Overview
+description: Learn how microservices, caching, and rate limiting work across the platform.
+---
+
+# Architecture Overview
+
+Our platform is engineered for high throughput, predictable latencies, and distributed fault tolerance.
+
+{% callout type="info" title="Zero Downtime Deployments" %}
+All endpoints operate across multiple geographically distributed availability zones.
+{% /callout %}
+
+## Implementation Steps
+
+{% steps %}
+{% step title="Generate Credentials" %}
+Obtain your API Key from the portal settings and configure it in your environment variables.
+{% /step %}
+
+{% step title="Configure Webhooks" %}
+Register a secure HTTPS callback URL to receive real-time event notifications.
+{% /step %}
+
+{% step title="Test Endpoints in Sandbox" %}
+Validate schema payloads against the sandbox environment before going live.
+{% /step %}
+{% /steps %}
+
+## Code Examples
+
+{% tabs %}
+{% tab name="JavaScript" %}
+```javascript
+const res = await fetch('https://api.example.com/v1/items', {
+  headers: { Authorization: 'Bearer YOUR_TOKEN' }
+});
+const items = await res.json();
+```
+{% /tab %}
+
+{% tab name="Python" %}
+```python
+import requests
+
+res = requests.get('https://api.example.com/v1/items', headers={
+    'Authorization': 'Bearer YOUR_TOKEN'
+})
+items = res.json()
+```
+{% /tab %}
+
+{% tab name="cURL" %}
+```bash
+curl -H "Authorization: Bearer YOUR_TOKEN" https://api.example.com/v1/items
+```
+{% /tab %}
+{% /tabs %}

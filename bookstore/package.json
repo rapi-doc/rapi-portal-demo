@@ -1,0 +1,14 @@
+{
+  "name": "bookstore",
+  "version": "0.1.0",
+  "description": "Bookstore developer portal: the smallest RapiDoc Portal example, one spec and a few guides",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "node ../../rapidoc/packages/rapidoc-cli/src/index.js dev",
+    "build": "node ../../rapidoc/packages/rapidoc-cli/src/index.js build",
+    "serve": "node ../../rapidoc/packages/rapidoc-cli/src/index.js serve dist",
+    "mock": "node ../../rapidoc/packages/rapidoc-cli/src/index.js mock",
+    "validate": "node ../../rapidoc/packages/rapidoc-cli/src/index.js validate"
+  }
+}
