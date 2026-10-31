@@ -3,6 +3,7 @@ title: Cosmo Cargo Developer Platform
 description: Integrate quantum telemetry, planetary customs, warp manifests and FTL cargo transport.
 template: splash
 hero:
+  layout: stacked
   tagline: Integrate quantum telemetry, automated planetary customs, warp manifests and FTL cargo transport with OpenAPI developer tooling.
   actions:
     - text: Read the docs
