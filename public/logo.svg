@@ -1,18 +1,30 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 57 49" role="img" aria-label="Rapid Parcels">
-  <!-- Speed lines -->
-  <path d="M16.2 19.8 L4.2 19.8" fill="none" stroke="#78350f" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/>
-  <path d="M12.9 25.7 L4.9 25.7" fill="none" stroke="#78350f" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/>
-  <path d="M12.7 31.5 L2.7 31.5" fill="none" stroke="#78350f" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/>
-  <!-- Open flaps -->
-  <path d="M21.8 16.9 L28.7 13.2 L24.1 1 L17.2 4.6 Z" fill="#fbbf24"/>
-  <path d="M42.3 21.2 L49.2 17.6 L55.9 5.7 L49 9.3 Z" fill="#fbbf24"/>
-  <!-- Inside of the box -->
-  <path d="M21.8 16.9 L28.7 13.2 L49.2 17.6 L42.3 21.2 Z" fill="#92400e"/>
-  <!-- Side face -->
-  <path d="M42.3 21.2 L49.2 17.6 L45.5 35.2 L38.6 38.8 Z" fill="#b45309"/>
-  <!-- Front face -->
-  <path d="M21.8 16.9 L42.3 21.2 L38.6 38.8 L18.1 34.5 Z" fill="#f59e0b"/>
-  <!-- Legs, mid-stride -->
-  <path d="M23.2 34.5 L18.2 41.5 L11.2 38.5" fill="none" stroke="#78350f" stroke-width="4.2" stroke-linecap="round" stroke-linejoin="round"/>
-  <path d="M34.9 37 L38.9 44 L45.9 45.5" fill="none" stroke="#78350f" stroke-width="4.2" stroke-linecap="round" stroke-linejoin="round"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 56" role="img" aria-label="Rapid Parcels">
+  <!-- Shadow -->
+  <ellipse cx="33" cy="52.5" rx="13" ry="1.8" fill="#000" opacity="0.16"/>
+  <!-- Speed lines, tapering away from the box -->
+  <g fill="#3b2410">
+    <path d="M18.5 19.6 L18.5 22.4 L5 21 Z"/>
+    <path d="M17.5 25.6 L17.5 28.4 L8 27 Z"/>
+    <path d="M18.5 31.6 L18.5 34.4 L3 33 Z"/>
+  </g>
+  <!-- Legs: knees bent mid-stride, small feet -->
+  <g fill="none" stroke="#3b2410" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M27 37.5 C25.5 41.5 23 44 19.5 44.5 C17.5 44.8 15.5 44 14 42.5"/>
+    <path d="M37 36 C40 39.5 41.5 43 40.5 47.5 L45.5 48"/>
+  </g>
+  <g stroke="#3b2410" stroke-width="2" stroke-linejoin="round">
+    <!-- Flaps, opened outward -->
+    <path d="M23.5 17 L29.5 11 L24.5 2.5 L18 8 Z" fill="#fcd34d"/>
+    <!-- Inside -->
+    <path d="M23.5 17 L42 14 L48 8 L29.5 11 Z" fill="#92400e"/>
+    <!-- Right flap stands up in front of the opening -->
+    <path d="M42 14 L48 8 L46.5 0.5 L40.5 6 Z" fill="#fde68a"/>
+    <!-- Side face -->
+    <path d="M42 14 L48 8 L46 29.5 L40 35 Z" fill="#d97706"/>
+    <!-- Front face, leaning into the run -->
+    <path d="M23.5 17 L42 14 L40 35 L21.5 38 Z" fill="#fbbf24"/>
+  </g>
+  <!-- Shipping label -->
+  <path d="M31.5 21.6 L38.6 20.5 L38.2 26.3 L31.1 27.4 Z" fill="#fffbeb" stroke="#3b2410" stroke-width="1.2" stroke-linejoin="round"/>
+  <path d="M33 23.6 L36.8 23 M32.8 25.4 L35.4 25" stroke="#3b2410" stroke-width="0.9" stroke-linecap="round" opacity="0.55"/>
 </svg>
