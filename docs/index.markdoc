@@ -6,7 +6,7 @@ hero:
   title: Price it in seconds<br>Book it in one call<br><mark>Track every scan</mark>
   tagline: Parcel shipping across Europe for shops, warehouses and carriers. Public prices for everyone; shipping, partner and internal APIs once you sign in.
   image:
-    html: <img src="/hero-parcels.svg" alt="A price quote, a booked shipment and a tracking timeline, next to the Rapid Parcels mark" width="520" height="460">
+    html: <img class="rp-hero-dark" src="/hero-parcels.svg" alt="A price quote, a booked shipment and a tracking timeline, next to the Rapid Parcels mark" width="520" height="460"><img class="rp-hero-light" src="/hero-parcels-light.svg" alt="A price quote, a booked shipment and a tracking timeline, next to the Rapid Parcels mark" width="520" height="460">
   actions:
     - text: Get started
       link: /docs/getting-started/
@@ -20,7 +20,7 @@ hero:
 
 {% card-grid %}
 {% card title="Rates" icon="currency-eur" href="/apis/rates" %}
-Public prices and service levels. No sign-in needed; try it right below.
+Public prices and service levels. No sign-in needed.
 {% /card %}
 {% card title="Shipments" icon="package" href="/apis/shipments" %}
 Create, list and cancel shipments, print labels, receive webhooks. For shop developers.
@@ -36,9 +36,3 @@ Manifests, label uploads and pickups for partner carriers.
 {% callout type="lock" title="Two more behind sign-in" %}
 The **Billing** and **Admin** APIs are internal. They appear in the [catalog](/catalog/) with a lock until you [sign in](/docs/authentication/) with a role that may read them.
 {% /callout %}
-
-## Quote a parcel now
-
-The Rates API is public, so this console works without signing in. It sends the request to the mock server (`rapidoc mock`) on your machine.
-
-{% api-operation spec="rates" path="/rates" method="get" /%}

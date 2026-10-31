@@ -5,7 +5,9 @@ site:
   title: Rapid Parcels Developers
   description: Ship, track and bill parcels with the Rapid Parcels APIs. A fictional company, built to demo RapiDoc.
   logo:
-    src: /logo.svg
+    src:
+      light: /logo.svg
+      dark: /logo-dark.svg
     text: RAPID PARCELS
   favicon: /logo.svg
   titleTemplate: '%s · Rapid Parcels'
@@ -15,7 +17,7 @@ site:
     background: "#facc15"
     color: "#1c1917"
 theme:
-  primary: "#14b8a6"
+  primary: "#f59e0b"
   mode: auto
   css: ./styles/rapid-parcels.css
 header:
@@ -90,14 +92,6 @@ apis:
     spec: ./specs/admin.json
     category: Internal
 footer:
-  cta:
-    title: Ship your first parcel in minutes
-    description: Quote a price with the public Rates API, then book it with the Shipments API.
-    links:
-      - label: Get started
-        href: /docs/getting-started
-      - label: Explore the APIs
-        href: /catalog
   columns:
     - title: Developers
       links:

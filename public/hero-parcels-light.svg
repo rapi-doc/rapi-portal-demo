@@ -1,0 +1,98 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 460" role="img" aria-labelledby="hero-title">
+  <title id="hero-title">A price quote, a booked shipment and a tracking timeline, next to the Rapid Parcels mark</title>
+  <defs>
+    <radialGradient id="glow" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#f59e0b" stop-opacity="0.16"/>
+      <stop offset="1" stop-color="#f59e0b" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="150%">
+      <feDropShadow dx="0" dy="18" stdDeviation="16" flood-color="#000000" flood-opacity="0.35"/>
+    </filter>
+    <style>
+      text { font-family: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif; }
+      .mono { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
+      .card { fill: #0f1a20; stroke: rgba(255,255,255,0.14); }
+      .h { fill: #ffffff; font-weight: 700; font-size: 15px; }
+      .t { fill: #e5e7eb; font-size: 13px; }
+      .m { fill: #9ca3af; font-size: 12px; }
+      .track { fill: rgba(255,255,255,0.12); }
+    </style>
+  </defs>
+
+  <!-- Inside the viewBox on every side, so the glow fades out before the image edge -->
+  <circle cx="220" cy="215" r="210" fill="url(#glow)"/>
+
+  <!-- Mark (public/logo.svg at 3.6x): the running parcel -->
+  <g transform="translate(70 25) scale(3.6)">
+      <!-- Speed lines -->
+      <path d="M16.2 19.8 L4.2 19.8" fill="none" stroke="#78350f" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M12.9 25.7 L4.9 25.7" fill="none" stroke="#78350f" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M12.7 31.5 L2.7 31.5" fill="none" stroke="#78350f" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/>
+      <!-- Open flaps -->
+      <path d="M21.8 16.9 L28.7 13.2 L24.1 1 L17.2 4.6 Z" fill="#fbbf24"/>
+      <path d="M42.3 21.2 L49.2 17.6 L55.9 5.7 L49 9.3 Z" fill="#fbbf24"/>
+      <!-- Inside of the box -->
+      <path d="M21.8 16.9 L28.7 13.2 L49.2 17.6 L42.3 21.2 Z" fill="#92400e"/>
+      <!-- Side face -->
+      <path d="M42.3 21.2 L49.2 17.6 L45.5 35.2 L38.6 38.8 Z" fill="#b45309"/>
+      <!-- Front face -->
+      <path d="M21.8 16.9 L42.3 21.2 L38.6 38.8 L18.1 34.5 Z" fill="#f59e0b"/>
+      <!-- Legs, mid-stride -->
+      <path d="M23.2 34.5 L18.2 41.5 L11.2 38.5" fill="none" stroke="#78350f" stroke-width="4.2" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M34.9 37 L38.9 44 L45.9 45.5" fill="none" stroke="#78350f" stroke-width="4.2" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+
+  <!-- Quote card -->
+  <g>
+  <g transform="translate(248 150)" filter="url(#shadow)">
+    <rect width="256" height="150" rx="16" class="card"/>
+    <text x="20" y="32" class="h">Berlin → Paris</text>
+    <text x="236" y="32" text-anchor="end" class="m">2.5 kg</text>
+    <text x="20" y="62" class="t">Express</text>
+    <text x="236" y="62" text-anchor="end" class="mono t">€12.90</text>
+    <rect x="20" y="70" width="216" height="6" rx="3" class="track"/>
+    <rect x="20" y="70" width="188" height="6" rx="3" fill="#f59e0b"/>
+    <text x="20" y="104" class="t">Standard</text>
+    <text x="236" y="104" text-anchor="end" class="mono t">€8.40</text>
+    <rect x="20" y="112" width="216" height="6" rx="3" class="track"/>
+    <rect x="20" y="112" width="108" height="6" rx="3" fill="#fcd34d"/>
+    <text x="20" y="138" class="m">1 day</text>
+    <text x="236" y="138" text-anchor="end" class="m">3 days</text>
+  </g>
+  </g>
+
+  <!-- Response chip -->
+  <g>
+  <g transform="translate(300 118)" filter="url(#shadow)">
+    <rect width="150" height="30" rx="15" fill="#ffffff"/>
+    <circle cx="16" cy="15" r="5" fill="#16a34a"/>
+    <text x="28" y="20" class="mono" font-size="12" font-weight="700" fill="#15803d">201 Created</text>
+  </g>
+  </g>
+
+  <!-- Tracking card -->
+  <g>
+  <g transform="translate(70 300)" filter="url(#shadow)">
+    <rect width="300" height="128" rx="16" class="card"/>
+    <text x="20" y="32" class="mono t" font-weight="700">RP123456789FR</text>
+    <text x="280" y="32" text-anchor="end" class="m">out for delivery</text>
+    <path d="M30 76h172" stroke="#f59e0b" stroke-width="3"/>
+    <path d="M202 76h68" stroke="rgba(255,255,255,0.18)" stroke-width="3"/>
+    <g fill="#f59e0b">
+      <circle cx="30" cy="76" r="7"/>
+      <circle cx="88" cy="76" r="7"/>
+      <circle cx="146" cy="76" r="7"/>
+    </g>
+    <circle cx="204" cy="76" r="11" fill="#fde047" opacity="0.3"/>
+    <circle cx="204" cy="76" r="7" fill="#fde047"/>
+    <circle cx="270" cy="76" r="7" fill="#0f1a20" stroke="rgba(255,255,255,0.3)" stroke-width="2"/>
+    <g class="m" text-anchor="middle">
+      <text x="30" y="108">Booked</text>
+      <text x="88" y="108">Picked up</text>
+      <text x="146" y="108">At hub</text>
+      <text x="204" y="108" fill="#fde047" font-weight="700">On its way</text>
+      <text x="270" y="108">Delivered</text>
+    </g>
+  </g>
+  </g>
+</svg>
