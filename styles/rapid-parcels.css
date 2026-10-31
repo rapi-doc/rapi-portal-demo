@@ -1,8 +1,5 @@
 /* Rapid Parcels' own touches on top of the portal theme (theme.css in rapidoc.config.yaml).
    The portal's CSS variables are the supported way in; see the @rapidoc/portal README. */
-:root {
-  --portal-radius: 0.75rem;
-}
 
 /* Hero headline: the <mark> gradient in the brand's amber and yellow */
 .hero h1 mark {
