@@ -72,6 +72,11 @@ navigation:
   - label: API Catalog
     icon: squares-four
     catalog: true
+workflows:
+  # Arazzo files: drawn by {% workflow file="<id>" /%} in docs, exported as MCP tools. A source
+  # description named like an API id resolves against that API's spec (see sources: otherwise).
+  - file: ./workflows/quote-a-parcel.arazzo.yaml
+  - file: ./workflows/ship-a-parcel.arazzo.yaml
 apis:
   - id: rates
     spec: ./specs/rates.yaml

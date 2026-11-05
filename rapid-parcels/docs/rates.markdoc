@@ -24,3 +24,10 @@ A quote is binding for 30 minutes. Pass its `id` as `quote_id` when you create t
 ## Where we deliver
 
 {% api-operation spec="rates" path="/coverage/{country}" method="get" /%}
+
+## Quote a parcel as a workflow
+
+The two calls above, as one [Arazzo](https://spec.openapis.org/arazzo/latest.html) workflow:
+list the services, then quote the parcel. It runs here against the mock server, with no sign-in.
+
+{% workflow file="quote-a-parcel" id="quoteParcel" view="compact" title="Quote a parcel" /%}

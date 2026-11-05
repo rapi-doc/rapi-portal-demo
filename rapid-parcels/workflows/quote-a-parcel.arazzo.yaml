@@ -1,0 +1,81 @@
+arazzo: 1.0.1
+info:
+  title: Quote a parcel
+  version: 1.0.0
+  description: "Public workflow on the Rates API: list the service levels, then price a parcel for one of them."
+sourceDescriptions:
+  - name: rates
+    url: ../specs/rates.yaml
+    type: openapi
+workflows:
+  - workflowId: quoteParcel
+    summary: Price a parcel
+    description: Lists the service levels, then asks for a quote for the chosen service between two postal codes.
+    inputs:
+      type: object
+      properties:
+        service:
+          type: string
+          description: Service level code
+          default: express
+          enum: [economy, express, same-day]
+        fromPostalCode:
+          type: string
+          default: "10115"
+        fromCountry:
+          type: string
+          default: DE
+        toPostalCode:
+          type: string
+          default: "75001"
+        toCountry:
+          type: string
+          default: FR
+        weightKg:
+          type: number
+          description: Parcel weight in kilograms
+          default: 2.5
+      required: [service, fromPostalCode, fromCountry, toPostalCode, toCountry]
+    steps:
+      - stepId: listServices
+        description: The service levels Rapid Parcels offers, to check the chosen one exists.
+        operationId: listServices
+        successCriteria:
+          - condition: $statusCode == 200
+          - condition: $response.body#/data/0/code != null
+        outputs:
+          firstService: $response.body#/data/0/code
+      - stepId: createQuote
+        description: Price the parcel for the chosen service.
+        operationId: createQuote
+        requestBody:
+          contentType: application/json
+          payload:
+            from:
+              postal_code: $inputs.fromPostalCode
+              country: $inputs.fromCountry
+            to:
+              postal_code: $inputs.toPostalCode
+              country: $inputs.toCountry
+            service: $inputs.service
+            parcels:
+              - weight_kg: $inputs.weightKg
+        successCriteria:
+          - condition: $statusCode == 201
+        onFailure:
+          - name: rateLimited
+            type: retry
+            retryAfter: 2
+            retryLimit: 2
+            criteria:
+              - condition: $statusCode == 429
+        outputs:
+          quoteId: $response.body#/id
+          amount: $response.body#/total/amount
+          currency: $response.body#/total/currency
+          expiresAt: $response.body#/expires_at
+    outputs:
+      quoteId: $steps.createQuote.outputs.quoteId
+      amount: $steps.createQuote.outputs.amount
+      currency: $steps.createQuote.outputs.currency
+      expiresAt: $steps.createQuote.outputs.expiresAt

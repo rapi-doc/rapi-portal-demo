@@ -1,0 +1,54 @@
+arazzo: 1.0.1
+info:
+  title: Track a shipment
+  version: 1.0.0
+  description: Look a shipment up by its tracking number, then list its tracking events.
+sourceDescriptions:
+  - name: shipments
+    url: ../specs/shipments.json
+    type: openapi
+workflows:
+  - workflowId: trackShipment
+    summary: Find a shipment and its events
+    description: Reads the shipment behind a tracking number, then its tracking events.
+    inputs:
+      type: object
+      properties:
+        trackingNumber:
+          type: string
+          description: The carrier tracking number
+          default: CC-2025-0001
+      required: [trackingNumber]
+    steps:
+      - stepId: findShipment
+        description: The shipment behind the tracking number.
+        operationId: trackShipment
+        parameters:
+          - name: trackingNumber
+            in: path
+            value: $inputs.trackingNumber
+        successCriteria:
+          - condition: $statusCode == 200
+        onFailure:
+          - name: unknownNumber
+            type: end
+            criteria:
+              - condition: $statusCode == 404
+        outputs:
+          shipmentId: $response.body#/id
+          status: $response.body#/status
+      - stepId: listEvents
+        description: Every tracking event of the shipment.
+        operationId: getTrackingEvents
+        parameters:
+          - name: shipmentId
+            in: path
+            value: $steps.findShipment.outputs.shipmentId
+        successCriteria:
+          - condition: $statusCode == 200
+        outputs:
+          events: $response.body
+    outputs:
+      shipmentId: $steps.findShipment.outputs.shipmentId
+      status: $steps.findShipment.outputs.status
+      events: $steps.listEvents.outputs.events

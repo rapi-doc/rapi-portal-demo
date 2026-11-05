@@ -144,6 +144,8 @@ navigation:
   - label: API Catalog
     icon: squares-four
     catalog: true
+workflows:
+  - file: ./workflows/track-a-shipment.arazzo.yaml
 apis:
   - id: shipments
     spec: ./specs/shipments.json

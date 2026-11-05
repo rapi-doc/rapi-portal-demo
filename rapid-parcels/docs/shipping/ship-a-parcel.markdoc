@@ -1,0 +1,36 @@
+---
+title: Ship a parcel, end to end
+description: "The whole journey as one Arazzo workflow: quote, book, label and track, across the Rates, Shipments and Tracking APIs."
+sidebar:
+  order: 1
+---
+
+Booking a parcel takes four calls across three APIs. The diagram below is generated from
+[`ship-a-parcel.arazzo.yaml`](/workflows/ship-a-parcel.arazzo.yaml), an
+[Arazzo](https://spec.openapis.org/arazzo/latest.html) description of the journey: each box is one
+operation, the dashed lines are the values one step passes to the next, and the outputs at the
+bottom are what you have at the end.
+
+{% workflow file="ship-a-parcel" id="shipParcel" title="Ship a parcel" /%}
+
+## Running it
+
+**Run workflow** executes the steps from your browser against the server in each spec (the
+mock server, by default). The Shipments steps need a token with `shipments:write` and
+`shipments:read`; paste one in the credentials fields of the run panel, or sign in on the
+[Shipments API](/apis/shipments) page and use the same token. The Rates and Tracking steps run
+without one.
+
+- **quote** prices the parcel (Rates, public).
+- **book** creates the shipment for that quote. A `409` means the `reference` was used before;
+  the workflow stops, since the shipment already exists.
+- **label** fetches the PDF label.
+- **subscribe** registers your callback URL for the parcel's `HUB`, `OFD` and `DLV` events.
+
+A `503` from any step is retried up to three times, two seconds apart.
+
+## The same workflow for AI agents
+
+The portal's MCP export turns this workflow into one tool, `ship_parcel`, whose arguments are the
+workflow's inputs (`reference`, `service`, `callbackUrl`) and whose result is its outputs. An
+agent that can call the tool gets the four steps, the retries and the checks for free.
