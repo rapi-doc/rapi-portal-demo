@@ -261,7 +261,7 @@ components:
               - type: string
               - type: number
               - type: boolean
-              - type: 'null'
+            nullable: true
         metadata:
           type: object
           description: Empty object for future extensibility
@@ -302,9 +302,9 @@ components:
           $ref: '#/components/schemas/TrackingDetails'
           description: Real-time tracking information for this shipment
         returnTracking:
-          oneOf:
+          allOf:
             - $ref: '#/components/schemas/TrackingDetails'
-            - type: 'null'
+          nullable: true
           description: Tracking details for return shipment if applicable
       additionalProperties: true
     Address:
@@ -3024,9 +3024,8 @@ paths:
           in: query
           description: Array of facility IDs to test
           schema:
-            type:
-              - array
-              - 'null'
+            type: array
+            nullable: true
             items:
               type: string
               enum:
@@ -3072,9 +3071,8 @@ paths:
                 type: object
                 properties:
                   facilities:
-                    type:
-                      - array
-                      - 'null'
+                    type: array
+                    nullable: true
                     items:
                       type: object
                       properties:
@@ -3087,17 +3085,15 @@ paths:
                             - DFW4
                             - SEA5
                         status:
-                          type:
-                            - string
-                            - 'null'
+                          type: string
+                          nullable: true
                           enum:
                             - ACTIVE
                             - MAINTENANCE
                             - CLOSED
                         capabilities:
-                          type:
-                            - array
-                            - 'null'
+                          type: array
+                          nullable: true
                           items:
                             type: string
                             enum:
@@ -3109,15 +3105,13 @@ paths:
                     type: object
                     properties:
                       tags:
-                        type:
-                          - array
-                          - 'null'
+                        type: array
+                        nullable: true
                         items:
                           type: string
                       coordinates:
-                        type:
-                          - array
-                          - 'null'
+                        type: array
+                        nullable: true
                         items:
                           type: number
                         minItems: 2
@@ -3301,9 +3295,8 @@ paths:
                   type: object
                   additionalProperties: true
                 operationName:
-                  type:
-                    - string
-                    - 'null'
+                  type: string
+                  nullable: true
             examples:
               list-characters:
                 summary: List characters
@@ -3340,9 +3333,8 @@ paths:
                 type: object
                 properties:
                   data:
-                    type:
-                      - object
-                      - 'null'
+                    type: object
+                    nullable: true
                     additionalProperties: true
                   errors:
                     type: array
