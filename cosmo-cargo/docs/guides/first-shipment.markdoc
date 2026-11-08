@@ -48,7 +48,7 @@ The response contains the `trackingNumber` you need to track the shipment. {% ba
 
 ## Track it
 
-{% api-operation spec="shipments" path="/shipments/{trackingNumber}" method="get" title="Track a shipment" /%}
+{% api-operation spec="shipments" path="/shipments/{trackingNumber}" method="get" title="Track a shipment" collapsed=true /%}
 
 ## Both calls as a workflow
 
