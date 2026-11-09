@@ -1,0 +1,323 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>RapiDoc Portal Showcase</title>
+    <meta
+      name="description"
+      content="Developer portals built with RapiDoc Portal. Open each one live, then read the code that made it."
+    />
+    <link rel="icon" href="assets/rapidoc-leaves.svg" type="image/svg+xml" />
+    <style>
+      :root {
+        --bg: #fafaf9;
+        --card: #ffffff;
+        --fg: #1c1917;
+        --muted: #57534e;
+        --line: #e7e5e4;
+        --accent: #ff791a;
+        --accent-fg: #1c1917;
+        --chip: #f5f5f4;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg: #121110;
+          --card: #1c1a19;
+          --fg: #f5f5f4;
+          --muted: #a8a29e;
+          --line: #2e2b29;
+          --chip: #292524;
+        }
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--fg);
+        font:
+          16px/1.55 system-ui,
+          -apple-system,
+          "Segoe UI",
+          Roboto,
+          sans-serif;
+      }
+      a {
+        color: inherit;
+      }
+      .wrap {
+        max-width: 1080px;
+        margin: 0 auto;
+        padding: 0 16px;
+      }
+      header {
+        padding: 56px 0 32px;
+      }
+      header img {
+        height: 40px;
+        display: block;
+      }
+      .logo-dark {
+        display: none !important;
+      }
+      @media (prefers-color-scheme: dark) {
+        .logo-light {
+          display: none !important;
+        }
+        .logo-dark {
+          display: block !important;
+        }
+      }
+      h1 {
+        font-size: clamp(1.9rem, 4vw, 2.6rem);
+        line-height: 1.15;
+        margin: 28px 0 12px;
+        letter-spacing: -0.02em;
+      }
+      .lead {
+        color: var(--muted);
+        font-size: 1.125rem;
+        max-width: 640px;
+        margin: 0;
+      }
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 20px;
+        padding: 16px 0 48px;
+      }
+      .card {
+        background: var(--card);
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        padding: 24px;
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+      }
+      .card-head {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+      .card-head img,
+      .card-head svg {
+        width: 40px;
+        height: 40px;
+        flex: none;
+      }
+      h2 {
+        font-size: 1.25rem;
+        margin: 0;
+      }
+      .tag {
+        font-size: 0.75rem;
+        color: var(--muted);
+      }
+      .card p {
+        margin: 0;
+        color: var(--muted);
+      }
+      ul.chips {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+      }
+      ul.chips li {
+        background: var(--chip);
+        border-radius: 999px;
+        padding: 2px 10px;
+        font-size: 0.8125rem;
+      }
+      .note {
+        font-size: 0.8125rem;
+      }
+      .actions {
+        margin-top: auto;
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 8px 16px;
+        border-radius: 8px;
+        border: 1px solid var(--line);
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 0.9375rem;
+      }
+      .btn.primary {
+        background: var(--accent);
+        border-color: var(--accent);
+        color: var(--accent-fg);
+      }
+      .btn:hover {
+        filter: brightness(0.95);
+      }
+      .btn:focus-visible {
+        outline: 2px solid var(--accent);
+        outline-offset: 2px;
+      }
+      .start {
+        border-top: 1px solid var(--line);
+        padding: 32px 0;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px 32px;
+        align-items: center;
+        justify-content: space-between;
+      }
+      .start h3 {
+        margin: 0 0 4px;
+        font-size: 1.0625rem;
+      }
+      .start p {
+        margin: 0;
+        color: var(--muted);
+      }
+      code {
+        font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+        background: var(--chip);
+        border-radius: 6px;
+        padding: 6px 12px;
+        font-size: 0.9375rem;
+      }
+      footer {
+        border-top: 1px solid var(--line);
+        padding: 20px 0 40px;
+        color: var(--muted);
+        font-size: 0.875rem;
+      }
+      footer nav {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <header>
+        <img class="logo-light" src="assets/rapidoc-lockup-light.svg" alt="RapiDoc" />
+        <img class="logo-dark" src="assets/rapidoc-lockup-dark.svg" alt="RapiDoc" />
+        <h1>Portal showcase</h1>
+        <p class="lead">
+          Developer portals built with RapiDoc Portal. Open each one live, then read the code that
+          made it: every portal is a folder of Markdown, OpenAPI specs and one config file.
+        </p>
+      </header>
+
+      <main class="grid">
+        <article class="card">
+          <div class="card-head">
+            <img src="assets/rapid-parcels.svg" alt="" />
+            <div>
+              <h2>Rapid Parcels</h2>
+              <span class="tag">The full demo, with sign-in</span>
+            </div>
+          </div>
+          <p>
+            A fictional parcel network with six APIs. Sign in to see which pages and APIs each role
+            can read, and which calls it may make.
+          </p>
+          <ul class="chips">
+            <li>Auth0 sign-in</li>
+            <li>Protected pages and APIs</li>
+            <li>API versions</li>
+            <li>Webhooks</li>
+            <li>Custom theme</li>
+          </ul>
+          <p class="note">
+            Runs on a free server that sleeps when idle: the first visit can take up to a minute.
+          </p>
+          <div class="actions">
+            <a class="btn primary" href="https://demo.rapidocui.com/">Open portal</a>
+            <a
+              class="btn"
+              href="https://github.com/rapi-doc/rapi-portal-demo/tree/main/rapid-parcels"
+              >Source</a
+            >
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-head">
+            <img src="assets/cosmo-cargo.svg" alt="" />
+            <div>
+              <h2>Cosmo Cargo</h2>
+              <span class="tag">A bigger static portal</span>
+            </div>
+          </div>
+          <p>
+            Interstellar shipping: several APIs, tutorials and Arazzo workflows. Migrated from a
+            Zudoku portal with <em>rapidoc migrate</em>.
+          </p>
+          <ul class="chips">
+            <li>9 APIs</li>
+            <li>Arazzo workflows</li>
+            <li>Dark theme</li>
+            <li>Nested header menus</li>
+          </ul>
+          <div class="actions">
+            <a class="btn primary" href="cosmo-cargo/">Open portal</a>
+            <a class="btn" href="https://github.com/rapi-doc/rapi-portal-demo/tree/main/cosmo-cargo"
+              >Source</a
+            >
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-head">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20" />
+            </svg>
+            <div>
+              <h2>Bookstore</h2>
+              <span class="tag">The smallest portal</span>
+            </div>
+          </div>
+          <p>
+            One OpenAPI spec and a few guides: exactly what <em>npm create rapidoc</em> scaffolds.
+            The place to start reading.
+          </p>
+          <ul class="chips">
+            <li>1 API</li>
+            <li>Markdoc guides</li>
+            <li>Search</li>
+          </ul>
+          <div class="actions">
+            <a class="btn primary" href="bookstore/">Open portal</a>
+            <a class="btn" href="https://github.com/rapi-doc/rapi-portal-demo/tree/main/bookstore"
+              >Source</a
+            >
+          </div>
+        </article>
+      </main>
+
+      <section class="start">
+        <div>
+          <h3>Make your own</h3>
+          <p>Scaffold a portal from your OpenAPI specs in a minute.</p>
+        </div>
+        <code>npm create rapidoc@latest</code>
+      </section>
+
+      <footer>
+        <nav>
+          <a href="https://portal.rapidocui.com">RapiDoc Portal docs</a>
+          <a href="https://github.com/rapi-doc/rapi-portal-demo">Showcase source</a>
+          <a href="https://github.com/rapi-doc/RapiDoc">RapiDoc on GitHub</a>
+          <a href="https://rapidocui.com">rapidocui.com</a>
+        </nav>
+      </footer>
+    </div>
+  </body>
+</html>

@@ -2,6 +2,8 @@
 
 Example developer portals built with [RapiDoc Portal](https://github.com/rapi-doc/rapi-portal-doc): `@rapidoc/cli`, `@rapidoc/portal`, `@rapidoc/server` and `@rapidoc/mock`. Each folder is a complete portal project; clone the repository, pick one, and run it.
 
+**See them live:** [rapi-doc.github.io/rapi-portal-demo](https://rapi-doc.github.io/rapi-portal-demo/) lists every example. Bookstore and Cosmo Cargo are static sites on GitHub Pages; Rapid Parcels needs `rapidoc serve` for sign-in, so it runs on Render at [demo.rapidocui.com](https://demo.rapidocui.com/).
+
 | Example | What it shows |
 | :--- | :--- |
 | [`bookstore/`](bookstore/) | The smallest portal: one OpenAPI spec, a few guides, and the mock server behind **Try**. What `npm create rapidoc` scaffolds. |
@@ -21,10 +23,29 @@ npm run validate   # checks the specs
 
 Rapid Parcels also has `npm run serve` (sign-in, needs a `.env`; see its README) and `npm run mock`.
 
+## Hosting
+
+| What | Where | How |
+| :--- | :--- | :--- |
+| Landing page (`site/`), `bookstore/`, `cosmo-cargo/` | GitHub Pages, each portal in its own folder | `.github/workflows/pages.yml` runs `deploy/build-pages.mjs` on every push to `main` |
+| `rapid-parcels/` (sign-in) | Render, free plan | `render.yaml` (a Render Blueprint); setup in `rapid-parcels/README.md`, "Hosting on Render" |
+
+Both build with the **published** packages pinned in `deploy/package-lock.json`, not the monorepo checkout, so the hosted examples show what users get from npm. To try a newer release, bump the versions in `deploy/package.json` and run `npm install --prefix deploy`.
+
+`deploy/build-pages.mjs` sets each portal's `site.url` to `<Pages URL>/<folder>` for that build only (the path of `site.url` is the portal's base path), so the committed configs and `npm run dev` keep serving at the root. Build the Pages site locally with:
+
+```bash
+npm ci --prefix deploy
+node deploy/build-pages.mjs     # into _site/
+```
+
 ## Layout
 
 ```text
 bookstore/        rapidoc.config.yaml, docs/, specs/bookstore.yaml
 rapid-parcels/    rapidoc.config.yaml, docs/, specs/, public/, styles/, auth0-setup.md
 cosmo-cargo/      rapidoc.config.yaml, docs/, specs/, public/ (© Zuplo, MIT: LICENSE-ZUDOKU.md)
+site/             the landing page published at the root of GitHub Pages
+deploy/           pinned @rapidoc packages and build-pages.mjs, used by the Pages workflow and Render
+render.yaml       Render Blueprint for Rapid Parcels
 ```

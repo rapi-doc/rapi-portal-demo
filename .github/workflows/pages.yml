@@ -1,0 +1,61 @@
+name: Deploy to GitHub Pages
+
+# Builds the landing page (site/) and the static examples (bookstore, cosmo-cargo) with the
+# published RapiDoc packages pinned in deploy/package-lock.json, and publishes them at
+# https://rapi-doc.github.io/rapi-portal-demo/. Rapid Parcels (sign-in) runs on Render: render.yaml.
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: deploy/package-lock.json
+
+      - name: Install the RapiDoc packages
+        run: npm ci --prefix deploy
+
+      - name: Setup Pages
+        id: pages
+        uses: actions/configure-pages@v5
+
+      - name: Build the site
+        run: node deploy/build-pages.mjs
+        env:
+          PAGES_URL: ${{ steps.pages.outputs.base_url }}
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

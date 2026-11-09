@@ -6,3 +6,6 @@ dist/
 
 # Local secrets for `npm run serve` (copy .env.example to .env)
 .env
+
+# GitHub Pages build output (node deploy/build-pages.mjs)
+_site/
