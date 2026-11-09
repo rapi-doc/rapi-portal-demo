@@ -22,4 +22,4 @@ services:
         generateValue: true
       # Where readers open the portal; must match the callback URL registered in Auth0.
       - key: RAPIDOC_PUBLIC_URL
-        value: https://demo.rapidocui.com
+        value: https://parcels.rapidocui.com

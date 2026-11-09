@@ -67,12 +67,12 @@ and open http://localhost:8090. `npm run serve` loads `.env` (variables already 
 
 ### Hosting on Render
 
-The hosted demo ([demo.rapidocui.com](https://demo.rapidocui.com/)) runs `rapidoc serve` on Render's free plan, set up by `../render.yaml`. It builds with the published packages in `../deploy/`, not the monorepo.
+The hosted demo ([parcels.rapidocui.com](https://parcels.rapidocui.com/)) runs `rapidoc serve` on Render's free plan, set up by `../render.yaml`. It builds with the published packages in `../deploy/`, not the monorepo.
 
 1. **Render → New → Blueprint**, pick this repository. Render reads `render.yaml`, generates `RAPIDOC_SESSION_SECRET` and asks for `RAPIDOC_AUTH_CLIENT_SECRET` (Auth0 → Applications → Rapid Parcels Portal).
-2. **Custom domain:** in the service's **Settings → Custom Domains** add `demo.rapidocui.com`, and a `CNAME` record for it pointing at `rapid-parcels.onrender.com` (the address Render shows). Without a custom domain, set `RAPIDOC_PUBLIC_URL` to the `onrender.com` address instead.
-3. **Auth0** (Applications → Rapid Parcels Portal → Settings): add `https://demo.rapidocui.com/_rapidoc/auth/callback` to Allowed Callback URLs and `https://demo.rapidocui.com/` to Allowed Logout URLs.
-4. **Keeping it awake (optional):** a free service sleeps after 15 minutes without requests, and the next visit waits up to a minute. A free scheduler such as [cron-job.org](https://cron-job.org) requesting `https://demo.rapidocui.com/` every 10 minutes keeps it running; one always-on service fits in Render's 750 free hours a month.
+2. **Custom domain:** in the service's **Settings → Custom Domains** add `parcels.rapidocui.com`, and a `CNAME` record for it pointing at `rapid-parcels.onrender.com` (the address Render shows). Without a custom domain, set `RAPIDOC_PUBLIC_URL` to the `onrender.com` address instead.
+3. **Auth0** (Applications → Rapid Parcels Portal → Settings): add `https://parcels.rapidocui.com/_rapidoc/auth/callback` to Allowed Callback URLs and `https://parcels.rapidocui.com/` to Allowed Logout URLs.
+4. **Keeping it awake (optional):** a free service sleeps after 15 minutes without requests, and the next visit waits up to a minute. A free scheduler such as [cron-job.org](https://cron-job.org) requesting `https://parcels.rapidocui.com/` every 10 minutes keeps it running; one always-on service fits in Render's 750 free hours a month.
 
 Render redeploys on every push to `main`. **Try** calls the mock at `http://localhost:4010`, so on the hosted demo it only answers for readers running `npm run mock` themselves.
 

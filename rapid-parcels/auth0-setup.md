@@ -56,7 +56,7 @@ Use the existing **Default App** or create a dedicated one (clearer): **Applicat
 - [ ] **Settings:**
   - Allowed Callback URLs: `http://localhost:8090/_rapidoc/auth/callback`
   - Allowed Logout URLs: `http://localhost:8090/`
-  - (When the demo is hosted, add the same paths on `https://demo.rapidocui.com`.)
+  - (When the demo is hosted, add the same paths on `https://parcels.rapidocui.com`.)
 - [ ] **Settings → Advanced → Grant Types:** `Authorization Code` is on.
 - [ ] Copy the **Client ID** and **Client Secret** into the demo's git-ignored `.env` (step 9). Never put the secret in a committed file.
 

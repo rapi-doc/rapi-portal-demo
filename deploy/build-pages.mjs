@@ -18,7 +18,7 @@ const here = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(here, "..");
 const out = path.join(root, "_site");
 const rapidoc = path.join(here, "node_modules", ".bin", "rapidoc");
-const pagesUrl = (process.env.PAGES_URL || "https://rapi-doc.github.io/rapi-portal-demo").replace(
+const pagesUrl = (process.env.PAGES_URL || "https://demo.rapidocui.com").replace(
   /\/+$/,
   "",
 );
