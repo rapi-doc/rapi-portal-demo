@@ -1,41 +1,43 @@
-# BeanPoints Loyalty & Rewards System
+# Stellar Miles Loyalty & Rewards
 
-BrewCraft features a tier-based rewards system designed to drive customer retention.
+Every credit you spend on shipping earns Stellar Miles. Miles lift your membership tier and pay for upgrades on later shipments.
 
 ---
 
 ## Loyalty Tiers
 
 {% card-grid %}
-{% card title="Seed Tier" icon="star" %}
+{% card title="Bronze Tier" icon="star" %}
 - Entry level on sign-up
-- Earn **10 BeanPoints per $1** spent
-- Free birthday espresso shot
+- Earn **10 Stellar Miles per 100 credits** shipped
+- 10% off all shipments
 {% /card %}
 
-{% card title="Sprout Tier" icon="rocket" %}
-- Reach at 500 lifetime points
-- Earn **12.5 BeanPoints per $1** spent (1.25x multiplier)
-- 10% off whole bean bags
+{% card title="Silver Tier" icon="rocket" %}
+- Reach at 50,000 lifetime miles
+- Earn **12.5 Stellar Miles per 100 credits** (1.25x multiplier)
+- Free insurance up to 1M credits and access to express lanes
 {% /card %}
 
-{% card title="Bloom Tier" icon="heart" %}
-- Reach at 1,500 lifetime points
-- Earn **15 BeanPoints per $1** spent (1.5x multiplier)
-- Free non-dairy milk substitutions & monthly pastry pass
+{% card title="Gold Tier" icon="heart" %}
+- Reach at 150,000 lifetime miles
+- Earn **15 Stellar Miles per 100 credits** (1.5x multiplier)
+- A dedicated account manager and real-time cargo monitoring
 {% /card %}
 {% /card-grid %}
+
+The full list of perks is on [Member Benefits](/docs/member-benefits).
 
 ---
 
 ## Redeeming Rewards
 
-Customers can exchange their BeanPoints for menu discounts or free drinks:
+Spend miles to move a shipment up the queue: a priority upgrade costs 2,000 miles and is charged when you change the shipment's priority.
 
-{% callout type="tip" title="Double Points Tuesdays" %}
-Every Tuesday, all mobile app orders earn double BeanPoints automatically!
+{% callout type="tip" title="Double Miles on Warp Days" %}
+Every shipment booked with `express-warp` delivery on the first day of a galactic quarter earns double Stellar Miles.
 {% /callout %}
 
-Test reward redemption directly in our sandbox:
+Try a priority upgrade in the sandbox:
 
-{% api-operation spec="loyalty" path="/rewards/redeem" method="post" /%}
+{% api-operation spec="shipments" path="/shipments/{shipmentId}/priority" method="put" /%}

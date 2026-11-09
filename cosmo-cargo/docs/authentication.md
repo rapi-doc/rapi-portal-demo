@@ -1,16 +1,16 @@
 # Authentication & Authorization
 
-All requests to protected BrewCraft APIs must be authenticated. We support two authentication schemes depending on your integration type.
+All requests to protected Cosmo Cargo APIs must be authenticated. There are two schemes, depending on what is calling.
 
 ---
 
-## 1. Bearer Token (Customer & Mobile Integrations)
+## 1. Bearer Token (Apps and Shipper Portals)
 
-For mobile client apps and customer-facing frontends, pass a signed JSON Web Token (JWT) in the HTTP `Authorization` header:
+For mobile apps and customer-facing frontends, pass a signed JSON Web Token (JWT) in the HTTP `Authorization` header. Get one from `POST /oauth/token`:
 
 ```http
-GET /v1/orders HTTP/1.1
-Host: api.brewcraft.io
+GET /v1/shipments HTTP/1.1
+Host: api.sh.example.com
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
 ```
 
@@ -18,12 +18,12 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
 
 ## 2. API Key Header (Server-to-Server)
 
-For backend service-to-service communication, webhooks, or point-of-sale (POS) systems, pass your secret API key in the `X-BrewCraft-Secret` header:
+For backend services, spaceport dock systems and webhook management, pass your secret API key in the `X-API-Key` header:
 
 ```http
-POST /v1/payments/intents HTTP/1.1
-Host: api.brewcraft.io
-X-BrewCraft-Secret: bc_secret_live_998877665544332211
+POST /v1/webhooks HTTP/1.1
+Host: api.sh.example.com
+X-API-Key: cc_secret_live_998877665544332211
 Content-Type: application/json
 ```
 
@@ -33,6 +33,6 @@ Content-Type: application/json
 
 :::lock{title="Keep live keys secret"}
 
-Never expose secret keys in client-side code, Git commits, or public repositories. Always use environment variables (e.g. `BREWCRAFT_API_KEY`) to supply credentials to your servers.
+Never expose secret keys in client-side code, Git commits, or public repositories. Always use environment variables (e.g. `COSMO_CARGO_API_KEY`) to supply credentials to your servers.
 
 :::

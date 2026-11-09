@@ -15,9 +15,9 @@ The OpenAPI specs and most docs come from Zudoku's Cosmo Cargo example, © Zuplo
 
 The monorepo tests depend on them. **Don't delete or rename** anything here without updating those tests; in particular:
 
-- `specs/orders-api.yaml`, `catalog-api.yaml`, `loyalty-api.yaml`, `payments-api.yaml`, `reservations-api.yaml`
-- `docs/guides/order-fulfillment.markdoc`, `docs/guides/loyalty-and-rewards.markdoc` (Markdoc tag coverage; their `api-operation` embeds name APIs that are not in `apis:`, which exercises the "API operation not found" notice)
-- `docs/tutorials/table-reservation-flow.mdx`, `docs/tutorials/webhook-integration.mdx`
+- `specs/orders-api.yaml`, `catalog-api.yaml`, `loyalty-api.yaml`, `payments-api.yaml`, `reservations-api.yaml`: specs of BrewCraft, a fictional coffee chain, used only as test input (search indexing, `rapidoc validate`); they are not in `apis:`, so the portal doesn't show them
+- `docs/guides/order-fulfillment.markdoc`, `docs/guides/loyalty-and-rewards.markdoc` (Markdoc tag coverage: callouts, steps, tabs, cards, and `api-operation` embeds of the `cargo-containers` and `shipments` APIs)
+- `docs/tutorials/cargo-bay-reservation.mdx`, `docs/tutorials/webhook-integration.mdx`
 - `specs/label-v3.json` with `label-base.json` (a spec with relative `$ref`s to another file)
 - `workflows/track-a-shipment.arazzo.yaml`, drawn by the `{% workflow %}` tag at the end of `docs/guides/first-shipment.markdoc` (the `workflows:` key of the config)
 - `specs/label-v2.json`, `label-v1.json`: with `label-v3.json`, the versions of the `labels` API (`versions:` in `rapidoc.config.yaml`; v3 at `/apis/labels`, the others at `/apis/labels/v2` and `/apis/labels/v1`)

@@ -1,0 +1,56 @@
+import { Callout, Tabs, TabItem } from '@rapidoc/portal/components';
+
+# Tutorial: Building a Cargo Bay Picker
+
+Learn how to use the Fleet Operations API to show shippers which cargo bays have room, before they book a container.
+
+<Callout type="tip">
+Cargo bays open for booking 14 days before launch, at 08:00 station time.
+</Callout>
+
+---
+
+## 1. Checking Availability
+
+Before showing bay options to your users, fetch the bays that can hold their cargo's temperature class:
+
+<Tabs>
+  <TabItem label="Request">
+```http
+GET /v2/cargo/bays?temperature=cryo HTTP/1.1
+Host: fleet.cosmocargo.dev
+X-API-Key: YOUR_API_KEY
+```
+  </TabItem>
+  <TabItem label="Response">
+```json
+[
+  {
+    "id": "8f14e45f-ceea-4e67-a1b2-3c4d5e6f7a8b",
+    "vesselId": "1c9e2a7b-4d3f-4b8a-9e6d-2f1a0b3c4d5e",
+    "capacityTons": 5000,
+    "usedTons": 3200,
+    "temperature": "cryo"
+  }
+]
+```
+  </TabItem>
+</Tabs>
+
+Free capacity is `capacityTons - usedTons`: 1,800 tons in this bay.
+
+---
+
+## 2. Temperature Classes
+
+| Temperature | Description | Best For |
+| :--- | :--- | :--- |
+| **Ambient** | Pressurized hold kept at 18–24 °C. | General freight and electronics |
+| **Cryo** | Held below −150 °C for the whole voyage. | Vaccines, cryo-sleep pods, cultured cells |
+| **Plasma-shielded** | Wrapped in a plasma field against radiation storms. | Reactive minerals and sensitive instruments |
+
+---
+
+## 3. Booking the Container
+
+Once the shipper picks a bay, book the container with `POST /containers/book` (Cargo Container Specifications API). The booking confirmation and launch reminders go to the notification channels in the request.

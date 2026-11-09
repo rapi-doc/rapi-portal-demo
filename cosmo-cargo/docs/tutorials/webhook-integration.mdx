@@ -1,21 +1,21 @@
 import { Callout, Tabs, TabItem } from '@rapidoc/portal/components';
 
-# Tutorial: Subscribing to Order Webhooks
+# Tutorial: Subscribing to Shipment Webhooks
 
-BrewCraft sends asynchronous HTTP POST requests to your server when asynchronous events occur.
+Cosmo Cargo sends an HTTP POST request to your server when something happens to a shipment: `shipment.created`, `shipment.delivered` and the other events you register for with `POST /webhooks`.
 
 <Callout type="warning">
-Always verify the HMAC SHA-256 signature on incoming webhooks to ensure payloads originate from BrewCraft.
+Always verify the HMAC SHA-256 signature on incoming webhooks to ensure payloads originate from Cosmo Cargo.
 </Callout>
 
 ---
 
 ## Verifying Webhook Signatures
 
-Each webhook request includes a header named `BrewCraft-Signature`:
+Each webhook request includes a header named `CosmoCargo-Signature`:
 
 ```
-BrewCraft-Signature: t=1697621400,v1=92f98e826b14a273b027cf8f4cbb23...
+CosmoCargo-Signature: t=1697621400,v1=92f98e826b14a273b027cf8f4cbb23...
 ```
 
 Verify the signature using your webhook signing secret:
@@ -25,7 +25,7 @@ Verify the signature using your webhook signing secret:
 ```javascript
 import crypto from "node:crypto";
 
-export function verifyBrewCraftWebhook(rawBody, signatureHeader, secret) {
+export function verifyCosmoCargoWebhook(rawBody, signatureHeader, secret) {
   const parts = Object.fromEntries(
     signatureHeader.split(",").map(p => p.split("="))
   );
@@ -50,7 +50,7 @@ export function verifyBrewCraftWebhook(rawBody, signatureHeader, secret) {
 import hmac
 import hashlib
 
-def verify_brewcraft_webhook(raw_body: str, signature_header: str, secret: str) -> bool:
+def verify_cosmo_cargo_webhook(raw_body: str, signature_header: str, secret: str) -> bool:
     parts = dict(item.split("=") for item in signature_header.split(","))
     timestamp = parts["t"]
     signature = parts["v1"]
