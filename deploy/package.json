@@ -11,9 +11,9 @@
     "pages": "node build-pages.mjs"
   },
   "dependencies": {
-    "@rapidoc/cli": "^0.1.3",
-    "@rapidoc/portal": "^0.1.3",
-    "@rapidoc/server": "^0.1.3",
+    "@rapidoc/cli": "^0.1.4",
+    "@rapidoc/portal": "^0.1.4",
+    "@rapidoc/server": "^0.1.4",
     "yaml": "^2.8.1"
   }
 }
