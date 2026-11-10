@@ -6,6 +6,7 @@ services:
     name: rapid-parcels
     runtime: node
     plan: free
+    autoDeployTrigger: commit # redeploy on every push to main
     buildCommand: npm ci --prefix deploy && deploy/node_modules/.bin/rapidoc build rapid-parcels
     startCommand: deploy/node_modules/.bin/rapidoc serve rapid-parcels/dist
     healthCheckPath: /
