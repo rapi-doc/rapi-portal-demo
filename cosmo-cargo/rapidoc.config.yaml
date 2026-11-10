@@ -244,6 +244,7 @@ footer:
 rapidoc:
   render-style: read
   schema-style: tree
+  scale: lg # larger code and small text than the portal default (default); Rapid Parcels shows the default
 
 # Optional sign-in and access rules, enforced by `rapidoc serve` (@rapidoc/server). Left off here so
 # the demo stays a static site; uncomment to try them (secrets come from RAPIDOC_SESSION_SECRET and
