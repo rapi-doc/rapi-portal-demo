@@ -1,7 +1,7 @@
 {
   "name": "rapi-portal-demo-deploy",
   "version": "1.0.0",
-  "description": "The published RapiDoc packages, pinned, that build the examples for GitHub Pages and Render",
+  "description": "The published RapiDoc packages, pinned, that build the examples for GitHub Pages and the demo server",
   "private": true,
   "type": "module",
   "engines": {
@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@rapidoc/cli": "^0.1.5",
+    "@rapidoc/mock": "^0.1.5",
     "@rapidoc/portal": "^0.1.5",
     "@rapidoc/server": "^0.1.5",
     "yaml": "^2.8.1"

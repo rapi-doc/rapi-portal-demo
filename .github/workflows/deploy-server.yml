@@ -1,0 +1,48 @@
+name: Deploy Rapid Parcels
+
+# Rapid Parcels needs a running program (sign-in, access rules, a mock that checks tokens), so it is not
+# on GitHub Pages like the other examples: it runs on a server sponsored by Simafri. This workflow signs
+# in to that server over SSH and has it build and restart the commit that was pushed.
+# The key in DEPLOY_SSH_KEY can do only that: the server runs one fixed command for it, whatever is asked
+# (deploy/server/README.md).
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'rapid-parcels/**'
+      - 'deploy/**'
+      - '.github/workflows/deploy-server.yml'
+  workflow_dispatch:
+
+permissions: {}
+
+concurrency:
+  group: deploy-server
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: server
+    permissions:
+      contents: read
+    steps:
+      # Only for deploy/server/known_hosts: the server's host key, so the connection cannot be redirected
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+          sparse-checkout: deploy/server
+
+      - name: Deploy over SSH
+        env:
+          DEPLOY_SSH_KEY: ${{ secrets.DEPLOY_SSH_KEY }}
+        run: |
+          install -m 700 -d ~/.ssh
+          printf '%s\n' "$DEPLOY_SSH_KEY" > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+          ssh -i ~/.ssh/deploy_key -p 23001 \
+            -o BatchMode=yes -o IdentitiesOnly=yes \
+            -o StrictHostKeyChecking=yes -o UserKnownHostsFile=deploy/server/known_hosts \
+            deploy@46.105.38.83 "$GITHUB_SHA"
