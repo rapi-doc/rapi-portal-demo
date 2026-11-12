@@ -65,22 +65,21 @@ npm run serve
 
 and open http://localhost:8090. `npm run serve` loads `.env` (variables already set in your shell win). The client secret only ever lives in `.env` or your shell, never in a committed file.
 
-### Hosting on Render
+### Hosting
 
-The hosted demo ([parcels.rapidocui.com](https://parcels.rapidocui.com/)) runs `rapidoc serve` on Render's free plan, set up by `../render.yaml`. It builds with the published packages in `../deploy/`, not the monorepo.
+The hosted demo ([parcels.rapidocui.com](https://parcels.rapidocui.com/)) runs `rapidoc serve` on a managed VPS sponsored by [Simafri](https://www.simafri.com/en/managed-vps/), next to `rapidoc mock` at `mock.rapidocui.com`. Both build with the published packages in `../deploy/`, not the monorepo, and are redeployed on every push to `main` by `.github/workflows/deploy-server.yml`. The server's layout, its settings file and how to add a domain are in [`../deploy/server/README.md`](../deploy/server/README.md).
 
-1. **Render → New → Blueprint**, pick this repository. Render reads `render.yaml`, generates `RAPIDOC_SESSION_SECRET` and asks for `RAPIDOC_AUTH_CLIENT_SECRET` (Auth0 → Applications → Rapid Parcels Portal).
-2. **Custom domain:** in the service's **Settings → Custom Domains** add `parcels.rapidocui.com`, and a `CNAME` record for it pointing at `rapid-parcels.onrender.com` (the address Render shows). Without a custom domain, set `RAPIDOC_PUBLIC_URL` to the `onrender.com` address instead.
-3. **Auth0** (Applications → Rapid Parcels Portal → Settings): add `https://parcels.rapidocui.com/_rapidoc/auth/callback` to Allowed Callback URLs and `https://parcels.rapidocui.com/` to Allowed Logout URLs.
-4. **Keeping it awake (optional):** a free service sleeps after 15 minutes without requests, and the next visit waits up to a minute. A free scheduler such as [cron-job.org](https://cron-job.org) requesting `https://parcels.rapidocui.com/` every 10 minutes keeps it running; one always-on service fits in Render's 750 free hours a month.
+To host it elsewhere, any machine that runs Node.js 22 will do:
 
-Render redeploys on every push to `main`. **Try** calls the mock at `http://localhost:4010`, so on the hosted demo it only answers for readers running `npm run mock` themselves.
+1. **Build and serve:** `rapidoc build rapid-parcels`, then `rapidoc serve rapid-parcels/dist` behind HTTPS, with the variables of `.env.example` set in the environment (`RAPIDOC_PUBLIC_URL` is the address readers open).
+2. **Auth0** (Applications → Rapid Parcels Portal → Settings): add `<your address>/_rapidoc/auth/callback` to Allowed Callback URLs and `<your address>/` to Allowed Logout URLs.
+3. **The mock:** `rapidoc mock rapid-parcels` with `RAPIDOC_MOCK_ISSUER` and `RAPIDOC_MOCK_AUDIENCE` set, and its address as the first server of each spec.
 
 ### Calling the APIs
 
-Signed in to the portal (`npm run serve`), **Try** sends your access token (`auth.tryIt`), so with `npm run mock` running every call is answered by your role's permissions: 200, or 403 naming the missing permission.
+Signed in to the portal, **Try** sends your access token (`auth.tryIt`), so every call is answered by your role's permissions: 200, or 403 naming the missing permission.
 
-Every spec lists the mock server first (`http://localhost:4010/<api id>`); `https://api.rapidparcels.example/v1` is documentation only. Start the mock with:
+Every spec lists the hosted mock first (`https://mock.rapidocui.com/<api id>`), then a local one (`http://localhost:4010/<api id>`); `https://api.rapidparcels.example/v1` is documentation only. To answer **Try** from your own machine, pick the local server in the API page and start the mock with:
 
 ```bash
 npm run mock       # all six APIs on http://localhost:4010/<api id>

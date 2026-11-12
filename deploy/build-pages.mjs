@@ -1,6 +1,6 @@
 // Builds the GitHub Pages site into ../_site: the landing page (../site/) at the root and each
 // static example in its own folder, served under <PAGES_URL>/<folder>/. Rapid Parcels needs
-// `rapidoc serve` for sign-in, so it runs on Render (../render.yaml) and the landing page links there.
+// `rapidoc serve` for sign-in, so it runs on a server (server/README.md) and the landing page links there.
 //
 //   npm ci --prefix deploy && node deploy/build-pages.mjs
 //

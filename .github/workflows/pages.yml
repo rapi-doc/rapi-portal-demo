@@ -2,7 +2,7 @@ name: Deploy to GitHub Pages
 
 # Builds the landing page (site/) and the static examples (bookstore, cosmo-cargo) with the
 # published RapiDoc packages pinned in deploy/package-lock.json, and publishes them at
-# https://demo.rapidocui.com/ (custom domain: site/CNAME). Rapid Parcels (sign-in) runs on Render: render.yaml.
+# https://demo.rapidocui.com/ (custom domain: site/CNAME). Rapid Parcels (sign-in) runs on a server: deploy-server.yml.
 
 on:
   push:
