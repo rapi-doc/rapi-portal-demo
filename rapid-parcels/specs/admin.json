@@ -12,8 +12,12 @@
   },
   "servers": [
     {
+      "url": "https://mock.rapidocui.com/admin",
+      "description": "Live mock server (the hosted demo's)"
+    },
+    {
       "url": "http://localhost:4010/admin",
-      "description": "Mock server (rapidoc mock)"
+      "description": "Local mock server (npm run mock)"
     },
     {
       "url": "https://api.rapidparcels.example/v1/admin",

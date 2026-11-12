@@ -15,8 +15,10 @@ info:
     name: Rapid Parcels Finance Engineering
     email: finance-eng@rapidparcels.example
 servers:
+  - url: https://mock.rapidocui.com/billing
+    description: Live mock server (the hosted demo's)
   - url: http://localhost:4010/billing
-    description: Mock server (rapidoc mock)
+    description: Local mock server (npm run mock)
   - url: https://api.rapidparcels.example/v1/billing
     description: Production (documentation only)
 tags:

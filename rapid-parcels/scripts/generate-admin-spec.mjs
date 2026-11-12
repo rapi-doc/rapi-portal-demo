@@ -234,7 +234,8 @@ const spec = {
     contact: { name: 'Rapid Parcels Platform Team', email: 'platform@rapidparcels.example' },
   },
   servers: [
-    { url: 'http://localhost:4010/admin', description: 'Mock server (rapidoc mock)' },
+    { url: 'https://mock.rapidocui.com/admin', description: "Live mock server (the hosted demo's)" },
+    { url: 'http://localhost:4010/admin', description: 'Local mock server (npm run mock)' },
     { url: 'https://api.rapidparcels.example/v1/admin', description: 'Production (documentation only)' },
   ],
   tags: RESOURCES.map(([, tag]) => ({ name: tag })),

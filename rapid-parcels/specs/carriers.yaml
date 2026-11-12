@@ -12,8 +12,10 @@ info:
     name: Rapid Parcels Partner Desk
     email: partners@rapidparcels.example
 servers:
+  - url: https://mock.rapidocui.com/carriers
+    description: Live mock server (the hosted demo's)
   - url: http://localhost:4010/carriers
-    description: Mock server (rapidoc mock)
+    description: Local mock server (npm run mock)
   - url: https://api.rapidparcels.example/v1/partners
     description: Production (documentation only)
 tags:
