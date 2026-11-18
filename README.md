@@ -2,7 +2,7 @@
 
 Example developer portals built with [RapiDoc Portal](https://github.com/rapi-doc/rapi-portal-doc): `@rapidoc/cli`, `@rapidoc/portal`, `@rapidoc/server` and `@rapidoc/mock`. Each folder is a complete portal project; clone the repository, pick one, and run it.
 
-**See them live:** [demo.rapidocui.com](https://demo.rapidocui.com/) lists every example. Bookstore and Cosmo Cargo are static sites on GitHub Pages; Rapid Parcels needs `rapidoc serve` for sign-in, so it runs on a server at [parcels.rapidocui.com](https://parcels.rapidocui.com/), with its mock API at `mock.rapidocui.com`. Hosting sponsored by [Simafri](https://www.simafri.com/en/managed-vps/) (managed VPS).
+**See them live:** [demo.rapidocui.com](https://demo.rapidocui.com/) lists every example. Bookstore and Cosmo Cargo are static sites on GitHub Pages; Rapid Parcels needs `rapidoc serve` for sign-in, so it runs on a server at [parcels.rapidocui.com](https://parcels.rapidocui.com/), with its mock API at `mockdemo.rapidocui.com`. Hosting sponsored by [Simafri](https://www.simafri.com/en/managed-vps/) (managed VPS).
 
 | Example | What it shows |
 | :--- | :--- |
@@ -28,7 +28,7 @@ Rapid Parcels also has `npm run serve` (sign-in, needs a `.env`; see its README)
 | What | Where | How |
 | :--- | :--- | :--- |
 | Landing page (`site/`), `bookstore/`, `cosmo-cargo/` | GitHub Pages at `demo.rapidocui.com` (`site/CNAME`), each portal in its own folder | `.github/workflows/pages.yml` runs `deploy/build-pages.mjs` on every push to `main` |
-| `rapid-parcels/` (sign-in) and its mock API | A managed VPS at `parcels.rapidocui.com` and `mock.rapidocui.com` | `.github/workflows/deploy-server.yml` has the server build and restart on every push to `main`; setup in `deploy/server/README.md` |
+| `rapid-parcels/` (sign-in) and its mock API | A managed VPS at `parcels.rapidocui.com` and `mockdemo.rapidocui.com` | `.github/workflows/deploy-server.yml` has the server build and restart on every push to `main`; setup in `deploy/server/README.md` |
 
 Both build with the **published** packages pinned in `deploy/package-lock.json`, not the monorepo checkout, so the hosted examples show what users get from npm. To try a newer release, bump the versions in `deploy/package.json` and run `npm install --prefix deploy`.
 

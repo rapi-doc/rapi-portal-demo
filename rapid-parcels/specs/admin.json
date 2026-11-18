@@ -12,7 +12,7 @@
   },
   "servers": [
     {
-      "url": "https://mock.rapidocui.com/admin",
+      "url": "https://mockdemo.rapidocui.com/admin",
       "description": "Live mock server (the hosted demo's)"
     },
     {

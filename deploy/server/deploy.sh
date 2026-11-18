@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Builds and restarts the Rapid Parcels demo on its server (parcels.rapidocui.com, mock.rapidocui.com).
+# Builds and restarts the Rapid Parcels demo on its server (parcels.rapidocui.com, mockdemo.rapidocui.com).
 # Runs on the server as the `deploy` user, from the checkout in /srv/rapidoc-demo, after that checkout was
 # moved to the commit being deployed (see deploy/server/README.md). Not for a developer machine.
 set -euo pipefail

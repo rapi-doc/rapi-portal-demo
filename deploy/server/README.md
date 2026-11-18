@@ -2,7 +2,7 @@
 
 Rapid Parcels runs on a managed VPS sponsored by [Simafri](https://www.simafri.com/en/managed-vps/)
 (Ubuntu 24.04, 2 vCPU, 4 GB): `parcels.rapidocui.com` is the portal with sign-in (`rapidoc serve`) and
-`mock.rapidocui.com` the mock API that checks its access tokens (`rapidoc mock`). The other examples are
+`mockdemo.rapidocui.com` the mock API that checks its access tokens (`rapidoc mock`). The other examples are
 static and stay on GitHub Pages.
 
 ## What is on the server
