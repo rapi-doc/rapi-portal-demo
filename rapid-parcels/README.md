@@ -67,7 +67,7 @@ and open http://localhost:8090. `npm run serve` loads `.env` (variables already 
 
 ### Hosting
 
-The hosted demo ([parcels.rapidocui.com](https://parcels.rapidocui.com/)) runs `rapidoc serve` on a managed VPS sponsored by [Simafri](https://www.simafri.com/en/managed-vps/), next to `rapidoc mock` at `mock.rapidocui.com`. Both build with the published packages in `../deploy/`, not the monorepo, and are redeployed on every push to `main` by `.github/workflows/deploy-server.yml`. The server's layout, its settings file and how to add a domain are in [`../deploy/server/README.md`](../deploy/server/README.md).
+The hosted demo ([parcels.rapidocui.com](https://parcels.rapidocui.com/)) runs `rapidoc serve` on a managed VPS sponsored by [Simafri](https://www.simafri.com/en/managed-vps/), next to `rapidoc mock` at `mockdemo.rapidocui.com`. Both build with the published packages in `../deploy/`, not the monorepo, and are redeployed on every push to `main` by `.github/workflows/deploy-server.yml`. The server's layout, its settings file and how to add a domain are in [`../deploy/server/README.md`](../deploy/server/README.md).
 
 To host it elsewhere, any machine that runs Node.js 22 will do:
 
@@ -79,7 +79,7 @@ To host it elsewhere, any machine that runs Node.js 22 will do:
 
 Signed in to the portal, **Try** sends your access token (`auth.tryIt`), so every call is answered by your role's permissions: 200, or 403 naming the missing permission.
 
-Every spec lists the hosted mock first (`https://mock.rapidocui.com/<api id>`), then a local one (`http://localhost:4010/<api id>`); `https://api.rapidparcels.example/v1` is documentation only. To answer **Try** from your own machine, pick the local server in the API page and start the mock with:
+Every spec lists the hosted mock first (`https://mockdemo.rapidocui.com/<api id>`), then a local one (`http://localhost:4010/<api id>`); `https://api.rapidparcels.example/v1` is documentation only. To answer **Try** from your own machine, pick the local server in the API page and start the mock with:
 
 ```bash
 npm run mock       # all six APIs on http://localhost:4010/<api id>
