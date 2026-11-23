@@ -19,7 +19,7 @@ hero:
 
 ## Built for interstellar velocity
 
-{% card-grid %}
+{% card-grid columns=2 %}
 {% card title="Quantum-entangled tracking" icon="rocket" href="/docs/tracking/" %}
 Real-time telemetry streams across light-years with sub-millisecond precision.
 {% /card %}

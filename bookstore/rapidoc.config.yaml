@@ -2,7 +2,7 @@
 site:
   title: "Bookstore Developer Portal"
   description: "Official developer portal and interactive API reference."
-  # url: "https://developers.example.com"   # canonical links and sitemap; a path (https://example.com/developers) is where the portal is served
+  # url: "https://developers.example.com"   # needed for canonical links and the sitemap; a path (https://example.com/developers) is where the portal is served
   # image: "/social-card.png"               # preview image for shared links (needs url)
   banner:
     message: "🎉 Welcome to our brand new developer portal!"

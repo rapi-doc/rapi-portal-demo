@@ -13,21 +13,21 @@ The consoles on this page work while you're signed out. They send requests to th
 
 `GET /rates` lists every service level that covers the route, cheapest first.
 
-{% api-operation spec="rates" path="/rates" method="get" /%}
+{% api-operation api="rates" path="/rates" method="get" /%}
 
 ## Lock a price with a quote
 
 A quote is binding for 30 minutes. Pass its `id` as `quote_id` when you create the shipment.
 
-{% api-operation spec="rates" path="/rates/quote" method="post" /%}
+{% api-operation api="rates" path="/rates/quote" method="post" /%}
 
 ## Where we deliver
 
-{% api-operation spec="rates" path="/coverage/{country}" method="get" /%}
+{% api-operation api="rates" path="/coverage/{country}" method="get" /%}
 
 ## Quote a parcel as a workflow
 
 The two calls above, as one [Arazzo](https://spec.openapis.org/arazzo/latest.html) workflow:
 list the services, then quote the parcel. It runs here against the mock server, with no sign-in.
 
-{% workflow file="quote-a-parcel" id="quoteParcel" view="compact" title="Quote a parcel" /%}
+{% workflow document="quote-a-parcel" id="quoteParcel" view="compact" title="Quote a parcel" /%}

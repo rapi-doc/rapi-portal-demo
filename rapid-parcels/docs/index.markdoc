@@ -18,7 +18,7 @@ hero:
 
 ## Six APIs, one portal
 
-{% card-grid %}
+{% card-grid columns=2 %}
 {% card title="Rates" icon="currency-eur" href="/apis/rates" %}
 Public prices and service levels. No sign-in needed.
 {% /card %}

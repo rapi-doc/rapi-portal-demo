@@ -14,7 +14,7 @@ hero:
       variant: minimal
 ---
 
-{% card-grid %}
+{% card-grid columns=2 %}
 {% card title="Getting Started" icon="rocket" href="/docs/getting-started/" %}
 Authenticate and make your first request.
 {% /card %}

@@ -19,7 +19,7 @@ The refund starts as `pending` and becomes `succeeded` when the payment provider
 {% /step %}
 {% /steps %}
 
-{% api-operation spec="billing" path="/refunds" method="post" /%}
+{% api-operation api="billing" path="/refunds" method="post" /%}
 
 {% callout type="info" title="Generated data" %}
 The Billing API spec has no examples, so the mock server makes up invoices and refunds from the schemas. Every run gives the same data.

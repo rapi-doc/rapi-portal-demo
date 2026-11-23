@@ -11,7 +11,7 @@ Booking a parcel takes four calls across three APIs. The diagram below is genera
 operation, the dashed lines are the values one step passes to the next, and the outputs at the
 bottom are what you have at the end.
 
-{% workflow file="ship-a-parcel" id="shipParcel" title="Ship a parcel" /%}
+{% workflow document="ship-a-parcel" id="shipParcel" title="Ship a parcel" /%}
 
 ## Running it
 

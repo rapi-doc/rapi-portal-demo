@@ -40,4 +40,4 @@ Every shipment booked with `express-warp` delivery on the first day of a galacti
 
 Try a priority upgrade in the sandbox:
 
-{% api-operation spec="shipments" path="/shipments/{shipmentId}/priority" method="put" /%}
+{% api-operation api="shipments" path="/shipments/{shipmentId}/priority" method="put" /%}

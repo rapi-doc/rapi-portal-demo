@@ -19,7 +19,7 @@ Create a key in the developer console and send it in the `X-API-Key` header.
 Send the origin, destination and packages:
 
 {% tabs %}
-{% tab name="cURL" %}
+{% tab label="cURL" %}
 ```sh
 curl -X POST https://api.cosmocargo.dev/v1/shipments \
   -H "X-API-Key: $COSMO_API_KEY" \
@@ -27,7 +27,7 @@ curl -X POST https://api.cosmocargo.dev/v1/shipments \
   -d '{"origin": "Earth", "destination": "Mars Colony Alpha", "packages": [{"weightKg": 42}]}'
 ```
 {% /tab %}
-{% tab name="JavaScript" %}
+{% tab label="JavaScript" %}
 ```js
 const response = await fetch('https://api.cosmocargo.dev/v1/shipments', {
   method: 'POST',
@@ -44,12 +44,12 @@ The response contains the `trackingNumber` you need to track the shipment. {% ba
 {% /step %}
 {% /steps %}
 
-{% api-operation spec="shipments" path="/shipments" method="post" title="Create a new shipment" /%}
+{% api-operation api="shipments" path="/shipments" method="post" title="Create a new shipment" /%}
 
 ## Track it
 
-{% api-operation spec="shipments" path="/shipments/{trackingNumber}" method="get" title="Track a shipment" collapsed=true /%}
+{% api-operation api="shipments" path="/shipments/{trackingNumber}" method="get" title="Track a shipment" collapsed=true /%}
 
 ## Both calls as a workflow
 
-{% workflow file="track-a-shipment" id="trackShipment" title="Track a shipment" /%}
+{% workflow document="track-a-shipment" id="trackShipment" title="Track a shipment" /%}

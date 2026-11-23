@@ -25,14 +25,14 @@ Download it with `GET /shipments/{shipmentId}/label` as PDF, PNG or ZPL.
 {% /step %}
 {% /steps %}
 
-{% api-operation spec="shipments" path="/shipments" method="post" /%}
+{% api-operation api="shipments" path="/shipments" method="post" /%}
 
 ## Check it
 
-{% api-operation spec="shipments" path="/shipments/{shipmentId}" method="get" /%}
+{% api-operation api="shipments" path="/shipments/{shipmentId}" method="get" /%}
 
 ## Cancel it
 
 Only before pickup; afterwards you get `409`.
 
-{% api-operation spec="shipments" path="/shipments/{shipmentId}/cancel" method="post" /%}
+{% api-operation api="shipments" path="/shipments/{shipmentId}/cancel" method="post" /%}
