@@ -11,10 +11,10 @@
     "pages": "node build-pages.mjs"
   },
   "dependencies": {
-    "@rapidoc/cli": "^0.2.3",
-    "@rapidoc/mock": "^0.2.3",
-    "@rapidoc/portal": "^0.2.3",
-    "@rapidoc/server": "^0.2.3",
+    "@rapidoc/cli": "^1.0.0",
+    "@rapidoc/mock": "^1.0.0",
+    "@rapidoc/portal": "^1.0.0",
+    "@rapidoc/server": "^1.0.0",
     "yaml": "^2.8.1"
   }
 }
